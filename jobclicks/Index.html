@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href="index.css">
+</head>
+
+<body>
+    <div class="bg">
+        <!-- Navigation Bar -->
+        <div class='d-flex flex-row'>
+            <nav class="navbar navbar-expand-lg ">
+                <a class="navbar-brand" href="#">
+                    <img src="Assets\logo.png" alt="Logo" style="height: 50px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-nav ml-auto">
+                        <a class="nav-item nav-link" href="#">Home</a>
+                        <a class="nav-item nav-link" href="#">Find Jobs</a>
+                        <a class="nav-item nav-link" href="#">Blogs</a>
+                        <div>
+                          <a class="nav-login nav-item nav-link" href="#">Login\Register</a>
+                        </div> 
+                        <a class="btn btn-warning" href="#about-us">Post job</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Hero Section -->
+        <div class='container'>
+            <div>
+                <div class='row'>
+                    <section class="hero d-flex align-items-center justify-content-center flex-column" id="hero">
+                        <h1 class="text-center">The TALENT you need.<br>The FLEXIBILITY you want.</h1>
+                        <p class="text-center">Find your job better and faster!</p>
+                        <!-- Job Search Form -->
+                        <form id="job-search" class="text-center">
+                            <input type="text" id="job-title" placeholder="Job Title">
+                            <input type="text" id="location" placeholder="Location">
+                            <button type="submit">Search</button>
+                        </form>
+                        <!-- Popular Searches -->
+                        <div id="popular-searches" class="text-center">
+                            <span>Popular Search:</span>
+                            <button>Developer</button>
+                            <button>Marketing</button>
+                            <button>UX/UI Design</button>
+                            <button>Human Resources</button>
+                            <button>Project Manager</button>
+                        </div>
+                        <p class="text-center">Update the latest jobs and announcements from Job Clicks. <a
+                                href="#">Join us today</a></p>
+                    </section>
+                    <!-- About Us Section -->
+                    <section id="about" class="about mt-5 p-5 mb-5">
+                        <div class="about-container d-flex align-items-left justify-content-center flex-row">
+                            <!-- Add about us content here -->
+                            <div class="d-flex flex-column p-5 ">
+                                <h2>Know More About us<br /> We're Accept You Friendly</h2>
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi ducimus fugit placeat,
+                                    voluptate soluta incidunt sequi nisi aliquid velit, cum repellat laborum deserunt
+                                    cumque sunt! Quos, eos fuga? Possimus, atque.</p>
+                            </div>
+                            <div>
+                                <img src="Assets\About us.webp" alt="about" width="300" height="300">
+                            </div>
+                        </div>
+                        <div class="info-cards container mt-5 mb-5 d-flex align-items-left justify-content-left flex-row">
+                            <div class="info-recruiter  mt-5 mb-5 p-5">
+                                <h4>I am Recruiter</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut
+                                    labore et dolore magna aliqua.</p>
+                                <button class='btn btn-secondary'>Register Account</button>
+                            </div>
+                            <div class="info-card-jobseeker mt-5 mb-5 p-5">
+                                <h4>I am Jobseeker</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut
+                                    labore et dolore magna aliqua.</p>
+                                <button class='btn btn-danger'>Register Account</button>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- How It Works Section -->
+                    <section id="how-it-works" class="how-it-works  d-flex align-items-center justify-content-center flex-row">
+                        <div>
+                            <div class="container d-flex flex-column">
+                                <div class='d-flex flex-column'>
+                                    <h2 class='hiw-h'>How it Works?</h2>
+                                    <p style="text-align:center;">Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit.</p>
+                                </div>
+                                <div class="main-steps d-flex flex-row">
+                                    <div class="p-5 m-5 step">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                            <path
+                                                d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                                        </svg>
+                                        <h4>Create Account</h4>
+                                        <p>creat an account and access</br> your saved settings on any device</p>
+                                    </div>
+                                    <div class="p-5 m-5 step">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5" />
+                                            <path
+                                                d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z" />
+                                        </svg>
+                                        <h4>Find your Job</h4>
+                                        <p>Don't just find.Be found </p>
+                                    </div>
+                                    <div class="p-5 m-5 step">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                                        </svg>
+                                        <h4>Apply & Get Job</h4>
+                                        <p>your next career move starts</br> here.Choose Job from thousand of</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="cta-jobseeker d-flex align-items-left justify-content-center flex-row">
+
+                                    <div>
+                                        <img class='img-seek' src="Assets\Jobseeker.webp" alt="about" width="300"
+                                            height="300">
+                                    </div>
+                                    <div class='p-5 seeker-txt'>
+                                        <h4>I am Jobseeker</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            incididunt ut labore et dolore magna aliqua.</p>
+                                        <button class='btn btn-warning'>Browse Job</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </section>
+                    <!-- Featured Jobs Section -->
+                    <section id="employer" class="employer-need d-flex flex-column mt-5">
+
+                        <div class="container d-flex align-items-center justify-content-center flex-column">
+                            <h2>Employer-Need content</h2>
+                            <p>make recruting your competetive advantage</p>
+                        </div>
+                        <div class='d-flex flex-row'>
+                            <div class="container d-flex align-items-left justify-content-left flex-column justify-content-left">
+                                <!-- Add featured jobs content here -->
+                                <h2>Lorem ipsum is placeholder text commonly.</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    incididunt ut labore et dolore magna aliqua. nulla pariatur. Excepteur sint
+                                    occaecat cupid</p>
+                            </div>
+
+                            <div class="belief-offer d-flex flex-row">
+                                <div class="belief">
+                                    <h3>What we believe</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        incididunt ut labore et dolore magna aliqua.</p>
+                                    <button>Post Job</button>
+                                </div>
+                                <div class="offer">
+                                    <h3>What We Offer</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                        incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="container d-flex align-items-left justify-content-right flex-row justify-content-left">
+                            <div><img src="Assets\employer-need.png" alt="employer-need"></div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-left">
+                          <h2>Featured Jobs</h2>
+                        <p>Join The Best Well Known Companies Around The World</p>
+                        </div>
+                        
+                        <div class="companies  d-flex align-items-center justify-content-center flex-">
+                            <!-- Replace with actual images and links to the company pages -->
+                            <a href="#"><img src="Assets\google-logo-2020.jpg" alt="Google" width="200"></a>
+                            <a href="#"><img src="Assets\oracle-1-logo-png-transparent.png" alt="Oracle"
+                                    width="200"></a>
+                            <a href="#"><img src="Assets\intel.png" alt="Intel" width="200"></a>
+                            <a href="#"><img src="Assets\IBM.png" alt="IBM" width="200"></a>
+                            <a href="#"><img src="Assets\Infosys.jpg" alt="Infosys" width="200"></a>
+                        </div>
+                        <div class="job-categories">
+                            <span>Suggested Categories:</span>
+                            <!-- Replace with actual links to job categories -->
+                            <a href="#">Developer</a>
+                            <a href="#">Marketing</a>
+                            <a href="#">UX/UI Design</a>
+                            <a href="#">Human Resources</a>
+                            <a href="#">Project Manager</a>
+                            <a href="#">Finance Consultancy</a>
+                            <a href="#">Finance</a>
+                        </div>
+                    </section>
+                </div>
+
+
+
+                <!-- Tech News Section -->
+                <h2 class="mt-5">Tech News</h2>
+                <div class="news-container d-flex flex-row">
+                    <!-- Add tech news content here -->
+                    <div class="news-card p-4 d-flex flex- row justify-content-center">
+                        <h3>Elon Musk Says Bitcoin ‘Less Dumb’</h3>
+                        <p style="font-size: 10px;">Elon Musk called cash ‘dumb’ when compared to Bitcoin. The Tesla CEO, who's known for
+                            not holding back when it comes to his posts on social media.</p>
+                    </div>
+                    <div class="news-card-1 p-4 d-flex flex- row justify-content-center">
+
+                        <h3>Android 12 Developer Preview 1</h3>
+                        <p style="font-size: 10px;" >Google has released the first developer preview of Android 12 - the next version of
+                            Android that will debut later this year as a successor to</p>
+                    </div>
+                    <div class="news-card-2 p-4 d-flex flex- row justify-content-center">
+
+                        <h3>Cogge
+                            Google Revamps Al Teams in
+                            Wake of Researcher
+                        </h3>
+                        <p style="font-size: 10px;">Google restructured its responsible artificial intelligence efforts to centralise teams
+                            under a single executive,
+                            Marian Croak, a move by</p>
+                    </div>
+                    <div class="news-card-3  p-4 d-flex flex- row justify-content-center">
+
+                        <h3>Microsoft Announces Windows 10 21H1 on Improving Remote</h3>
+                        <p style="font-size: 10px;">We are also beginning to gradually roll out the ability to effortlessly access and
+                            edit your most recent photos and screenshots from your Android mobile device in
+                            Snipping Tool on</p>
+                    </div>
+                </div>
+                <a href="#" class="all-blogs-link">Go To Blogs</a>
+                </section>
+
+                <!-- Newsletter Subscription Section -->
+                <section class="Subscription d-flex align-items-center justify-content-center flex-column">
+                    <h2>Subscribe Our Newsletter!</h2>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a
+                        page when looking at its layout.</p>
+                    <form id="newsletter-form">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </section>
+
+                <!-- Footer Section -->
+                <footer class="footer container p-5">
+                    <div class="footer-container  d-flex align-items-left justify-content-center flex-row">
+                        <div class="footer-section footer-logo">
+                            <img src="Assets\logo.png" alt="Logo" style="height: 50px;">
+                        </div>
+                        <div class="footer-section">
+                            <h4>Contact us</h4>
+                            <ul class="footer-contact">
+                                <li>Phone: +1 (202) 555-0104</li>
+                                <li>Email: example@gmail.com</li>
+                            </ul>
+                            <h4>Follow us</h4>
+                            <ul class="social-icons">
+                                <li><a href="http://www.facebook.com">Facebook</a></li>
+                                <li><a href="http://www.twitter.com">Twitter</a></li>
+                                <li><a href="http://www.instagram.com">Instagram</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h4>Information</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Teams and Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Careers with us</a></li>
+                                <li><a href="#">Contact us</a></li>
+                                <li><a href="#">FAQs</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h4>Browse Jobs</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">Browse all jobs</a></li>
+                                <li><a href="#">Govt. Jobs</a></li>
+                                <li><a href="#">International jobs</a></li>
+                                <li><a href="#">Jobs in Gulf</a></li>
+                                <li><a href="#">Jobs by Company</a></li>
+                                <li><a href="#">Jobs by Designation</a></li>
+                                <li><a href="#">Jobs by Location</a></li>
+                                <li><a href="#">Jobs by Skills</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h4>Jobseekers</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">Register Now</a></li>
+                                <li><a href="#">Search Job</a></li>
+                                <li><a href="#">Login</a></li>
+                                <li><a href="#">Create Job Alert</a></li>
+                                <li><a href="#">Report a Problem</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h4>Employers</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">Job Posting</a></li>
+                                <li><a href="#">Resume Database Access</a></li>
+                                <li><a href="#">Recruiter Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </footer>
+                <div class="container copy-box">
+                    <p style="text-align:center;">Copyright © 1991-2021 Dice all rights reserved
+                </div>
+            </div>
+            </div>
+        </section>
+        
+
+
+        <!-- Bootstrap and necessary scripts -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        </body>
+
+        </html>
+
