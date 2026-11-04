@@ -1,0 +1,40 @@
+name: HEALNEXIA
+
+on:
+  push:
+    paths: ['healnexia/**', '.github/workflows/healnexia.yml']
+  pull_request:
+    paths: ['healnexia/**', '.github/workflows/healnexia.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: healnexia-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: healnexia
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Static security checks
+        run: npm run check
+      - name: Unit tests
+        run: npm test
+      - name: Install Playwright (pinned)
+        run: npm install --no-save --no-audit --no-fund playwright@1.63.0 && npx playwright install --with-deps chromium
+      - name: End-to-end tests
+        run: npm run test:e2e

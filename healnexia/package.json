@@ -1,0 +1,15 @@
+{
+  "name": "healnexia-prototype",
+  "version": "2.0.0",
+  "private": true,
+  "description": "HEALNEXIA continuity-of-care prototype. Fictional data only; not a medical device.",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "test:e2e": "node --test --test-concurrency=1 \"tests/e2e/*.test.js\"",
+    "check": "node tools/check.mjs",
+    "ci": "npm run check && npm test && npm run test:e2e"
+  }
+}
