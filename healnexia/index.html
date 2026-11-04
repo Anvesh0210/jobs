@@ -6,12 +6,14 @@
   <title>HEALNEXIA · Care, connected</title>
   <meta name="description" content="HEALNEXIA connects visits, results, medicines and follow-ups from every provider into one calm care journey, so the next step is always clear and nothing important is overlooked.">
   <meta name="theme-color" content="#0f4f61">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
   <meta name="referrer" content="no-referrer">
   <meta property="og:title" content="HEALNEXIA · Care, connected">
   <meta property="og:description" content="One trustworthy care journey across every provider, with the next step always clear.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f4f61'/%3E%3Ccircle cx='13' cy='16' r='7' fill='none' stroke='%23c4eefa' stroke-width='2.5'/%3E%3Ccircle cx='19' cy='16' r='7' fill='none' stroke='%23c4eefa' stroke-width='2.5'/%3E%3C/svg%3E">
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <link rel="preload" href="assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/site.css">
   <script type="module" src="site/main.js"></script>
@@ -60,18 +62,18 @@
       <nav aria-label="Sections" class="hidden lg:block">
         <ul class="flex items-center gap-1 text-[0.95rem]" data-scrollspy>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#problem">Problem</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#story">Story</a></li>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#solution">Solution</a></li>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#how-it-works">How it works</a></li>
-          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#security">Security</a></li>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#timeline">Timeline</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#evidence">Evidence</a></li>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#personas">Personas</a></li>
-          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#impact">Impact</a></li>
           <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#faq">FAQ</a></li>
         </ul>
       </nav>
 
       <div class="flex items-center gap-2">
-        <a href="app.html" class="btn btn-ghost hidden min-h-10 rounded-xl px-4 text-sm sm:inline-flex">Live prototype</a>
+        <a href="app.html" class="btn btn-ghost hidden min-h-10 rounded-xl px-4 text-sm sm:inline-flex">Open the app</a>
         <button type="button" class="btn btn-primary hidden min-h-10 rounded-xl px-4 text-sm sm:inline-flex" data-open-dialog="join-dialog">Join the pilot</button>
         <button type="button" class="inline-flex size-11 items-center justify-center rounded-xl border border-brand-200 bg-white text-brand-900 lg:hidden" popovertarget="mobile-menu" aria-label="Open menu">
           <svg class="icon size-5"><use href="#i-menu"/></svg>
@@ -89,17 +91,19 @@
     <nav aria-label="Sections (mobile)">
       <ul class="flex flex-col text-lg" data-close-menu>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#problem">Problem</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#story">Our story</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#solution">Solution</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#how-it-works">How it works</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#security">Security</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#timeline">Timeline</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#evidence">Evidence</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#personas">Personas</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#impact">Impact</a></li>
         <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#faq">FAQ</a></li>
       </ul>
     </nav>
     <div class="mt-auto grid gap-2">
-      <a href="app.html" class="btn btn-ghost">Live prototype</a>
+      <a href="app.html" class="btn btn-ghost">Open the app</a>
       <button type="button" class="btn btn-primary" data-open-dialog="join-dialog">Join the pilot</button>
     </div>
   </div>
@@ -113,18 +117,18 @@
         <div class="text-center lg:text-left">
           <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/80 px-3 py-1 text-sm font-semibold text-brand-800 shadow-sm">
             <span class="size-2 rounded-full bg-brand-500 motion-safe:animate-pulse" aria-hidden="true"></span>
-            Continuity of care · Prototype
+            First prize · INNOVOTHON 2024 concept
           </p>
           <h1 class="text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl xl:text-7xl">
             Your care journey, connected with
             <span class="text-gradient block pt-1 font-extrabold tracking-[0.04em]">HEALNEXIA</span>
           </h1>
           <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-ink-soft lg:mx-0">
-            HEALNEXIA brings visits, results, medicines and follow-ups from every provider into one calm journey, so you always know what happens next and nothing important is overlooked.
+            HEALNEXIA brings visits, results, medicines and follow-ups from every provider into one calm journey, and connects you with pharmacists and care teams, so you always know what happens next and nothing important is overlooked.
           </p>
           <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
             <button type="button" class="btn btn-primary w-full sm:w-auto" data-open-dialog="join-dialog">Join the pilot</button>
-            <a href="app.html" class="btn btn-ghost w-full sm:w-auto">Try the live prototype <svg class="icon size-4"><use href="#i-arrow"/></svg></a>
+            <a href="app.html" class="btn btn-ghost w-full sm:w-auto">Open the app <svg class="icon size-4"><use href="#i-arrow"/></svg></a>
           </div>
           <p class="mt-5 text-sm text-ink-soft">Fictional demo data · Not a medical device · No medical advice</p>
         </div>
@@ -223,6 +227,41 @@
       </div>
     </section>
 
+    <!-- Our story (from the founder's own account) -->
+    <section id="story" class="py-20 md:py-28" aria-labelledby="story-title">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div data-reveal>
+          <p class="eyebrow">Our story</p>
+          <h2 id="story-title" class="section-title mt-4">It began with a question a pharmacist kept asking</h2>
+          <div class="mt-6 grid gap-4 text-lg text-ink-soft">
+            <p>HEALNEXIA was conceived by <strong class="text-ink">Ayesha Afreen</strong>, a Doctor of Pharmacy graduate from Hyderabad. On hospital wards and in everyday life, she kept noticing the same thing: people chose medicines and supplements because an advert or a social media post suggested them, not because anyone qualified advised them.</p>
+            <p>Her answer was an app to connect patients with pharmacists and other professionals. It won first prize at INNOVOTHON 2024. The win raised harder questions, and those questions shape everything here.</p>
+          </div>
+          <ul class="mt-8 grid gap-3">
+            <li class="flex items-start gap-3 rounded-2xl border border-brand-100 bg-white p-4 shadow-card"><span class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-100 font-bold text-brand-800">?</span><span><strong class="block text-ink">Would people trust it?</strong><span class="text-ink-soft">Trust has to be earned with clear sources and honest gaps.</span></span></li>
+            <li class="flex items-start gap-3 rounded-2xl border border-brand-100 bg-white p-4 shadow-card"><span class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-100 font-bold text-brand-800">?</span><span><strong class="block text-ink">Would pharmacists have time to respond?</strong><span class="text-ink-soft">Context attached to every question saves their time.</span></span></li>
+            <li class="flex items-start gap-3 rounded-2xl border border-brand-100 bg-white p-4 shadow-card"><span class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-100 font-bold text-brand-800">?</span><span><strong class="block text-ink">How would we know it helped?</strong><span class="text-ink-soft">By measuring benefit and harm before scaling. <a class="font-semibold text-brand-700 underline" href="#evidence">See the evaluation plan</a></span></span></li>
+          </ul>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2" data-reveal>
+          <figure class="rounded-3xl bg-brand-800 p-7 text-white shadow-float sm:col-span-2">
+            <p class="text-6xl font-bold tracking-tight text-aqua">1 in 2</p>
+            <figcaption class="mt-3 text-lg text-brand-50">In a survey of <strong class="text-white">202 people</strong> co-authored by Ayesha, about half had started taking multivitamins without asking anyone.</figcaption>
+          </figure>
+          <div class="rounded-3xl border border-brand-100 bg-white p-6 shadow-card">
+            <span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-amber-400 to-amber-600 text-white"><svg class="icon size-6"><use href="#i-check-circle"/></svg></span>
+            <p class="mt-4 text-xl font-semibold">First prize</p>
+            <p class="text-ink-soft">INNOVOTHON 2024, for the original HEALNEXIA concept.</p>
+          </div>
+          <div class="rounded-3xl border border-brand-100 bg-white p-6 shadow-card">
+            <span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-500 to-brand-800 text-white"><svg class="icon size-6"><use href="#i-shield"/></svg></span>
+            <p class="mt-4 text-xl font-semibold">Safety-first</p>
+            <p class="text-ink-soft">Shaped by hospital pharmacy practice and patient-safety work on adverse-event reports.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Solution: stacked cards -->
     <section id="solution" class="py-20 md:py-28" aria-labelledby="solution-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -314,7 +353,7 @@
                 <div class="md:col-span-3">
                   <p class="font-semibold text-aqua">05</p>
                   <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Messages with context</h3>
-                  <p class="mt-4 text-lg font-light text-brand-50 md:text-2xl">Ask a question linked to the exact step or medicine, so nobody has to retell your story. Never a channel for emergencies.</p>
+                  <p class="mt-4 text-lg font-light text-brand-50 md:text-2xl">Ask a pharmacist or your care team, with the exact step or medicine attached, so nobody retells your story. Never a channel for emergencies.</p>
                 </div>
                 <div class="grid gap-3 rounded-2xl bg-white p-5 text-sm text-ink shadow-float md:col-span-2" aria-hidden="true">
                   <span class="chip w-fit bg-brand-100 text-brand-900"><svg class="icon size-3.5"><use href="#i-link"/></svg> About: Follow-up blood test</span>
@@ -519,6 +558,31 @@
       </div>
     </section>
 
+    <!-- Evidence before adoption -->
+    <section id="evidence" class="py-20 md:py-28" aria-labelledby="evidence-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">Evidence before adoption</p>
+          <h2 id="evidence-title" class="section-title mx-auto mt-4 max-w-4xl">A digital tool should earn trust the way a medicine does</h2>
+          <p class="section-lede mt-5">Before HEALNEXIA is relied on, it has to show honest evidence of both benefit and harm. Then it is watched after launch, the way medicines are monitored once people start taking them.</p>
+        </div>
+        <ol class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <li class="card p-6" data-reveal><p class="text-sm font-bold tracking-widest text-brand-600">01 · TRUST</p><h3 class="mt-3 text-xl font-semibold">Do people understand it?</h3><ul class="mt-4 grid gap-2 text-ink-soft"><li>· Can they find their next step within 10 seconds?</li><li>· Can they explain why it exists and who owns it?</li><li>· Do they realise the view may be incomplete?</li></ul></li>
+          <li class="card p-6" data-reveal><p class="text-sm font-bold tracking-widest text-brand-600">02 · CAPACITY</p><h3 class="mt-3 text-xl font-semibold">Does it fit pharmacists' time?</h3><ul class="mt-4 grid gap-2 text-ink-soft"><li>· Response time for contextual questions</li><li>· Time spent per question, with and without context</li><li>· Duplicate reminders avoided</li></ul></li>
+          <li class="card p-6" data-reveal><p class="text-sm font-bold tracking-widest text-brand-600">03 · BENEFIT</p><h3 class="mt-3 text-xl font-semibold">Does care actually improve?</h3><ul class="mt-4 grid gap-2 text-ink-soft"><li>· Actions completed within their intended window</li><li>· Unresolved actions without an owner</li><li>· Supplements started after advice, not adverts</li></ul></li>
+          <li class="card p-6" data-reveal><p class="text-sm font-bold tracking-widest text-brand-600">04 · HARM</p><h3 class="mt-3 text-xl font-semibold">What could go wrong?</h3><ul class="mt-4 grid gap-2 text-ink-soft"><li>· False reassurance from incomplete data</li><li>· Unnecessary alarm from status language</li><li>· Urgent issues sent as ordinary messages</li></ul></li>
+        </ol>
+        <div class="mt-8 grid gap-5 rounded-3xl bg-linear-to-br from-brand-700 to-brand-900 p-8 text-white md:grid-cols-3 md:p-10" data-reveal>
+          <div class="md:col-span-2">
+            <h3 class="text-2xl font-semibold">Watched after launch, like a medicine</h3>
+            <p class="mt-3 text-brand-50">Suspected side effects can be reported from any medicine in the app, and the tool itself is monitored once people rely on it. Incidents feed a clinical safety case, and any AI assistance stays labelled, auditable and checked by a human.</p>
+          </div>
+          <div class="flex items-center md:justify-end"><a href="app.html#/meds" class="btn btn-light">See it in the app <svg class="icon size-4"><use href="#i-arrow"/></svg></a></div>
+        </div>
+        <p class="mt-6 text-center text-sm text-ink-soft">These are the questions a pilot would answer. No outcomes are claimed yet.</p>
+      </div>
+    </section>
+
     <!-- Personas -->
     <section id="personas" class="py-20 md:py-28" aria-labelledby="personas-title">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -652,7 +716,7 @@
         <p class="relative mx-auto mt-4 max-w-xl text-lg text-brand-50">Join the pilot list for updates, or explore the interactive prototype right now.</p>
         <div class="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <button type="button" class="btn btn-light" data-open-dialog="join-dialog">Join now</button>
-          <a href="app.html" class="btn border border-white/40 text-white hover:bg-white/10">Explore the prototype</a>
+          <a href="app.html" class="btn border border-white/40 text-white hover:bg-white/10">Open the app</a>
         </div>
       </div>
     </section>
@@ -665,11 +729,11 @@
         <p class="text-2xl font-bold tracking-[0.12em] text-brand-950">HEALNEXIA</p>
         <p class="mt-4 max-w-sm text-sm text-ink-soft">A patient-centred continuity-of-care platform that connects the events, people, information and open actions in a healthcare journey, so nothing important is overlooked.</p>
       </div>
-      <nav aria-label="Product"><h2 class="font-semibold">Product</h2><ul class="mt-4 grid gap-2.5 text-sm text-ink-soft"><li><a class="hover:text-brand-800" href="app.html">Live prototype</a></li><li><a class="hover:text-brand-800" href="app.html#/dashboard">Provider view</a></li><li><a class="hover:text-brand-800" href="#how-it-works">How it works</a></li><li><a class="hover:text-brand-800" href="#security">Security</a></li></ul></nav>
+      <nav aria-label="Product"><h2 class="font-semibold">Product</h2><ul class="mt-4 grid gap-2.5 text-sm text-ink-soft"><li><a class="hover:text-brand-800" href="app.html">Open the app</a></li><li><a class="hover:text-brand-800" href="app.html#/dashboard">Provider view</a></li><li><a class="hover:text-brand-800" href="#how-it-works">How it works</a></li><li><a class="hover:text-brand-800" href="#security">Security</a></li></ul></nav>
       <nav aria-label="Company"><h2 class="font-semibold">Help</h2><ul class="mt-4 grid gap-2.5 text-sm text-ink-soft"><li><a class="hover:text-brand-800" href="#faq">FAQ</a></li><li><button type="button" class="hover:text-brand-800" data-open-dialog="demo-dialog">Request a demo</button></li><li><button type="button" class="hover:text-brand-800" data-open-dialog="join-dialog">Join the pilot</button></li></ul></nav>
       <div><h2 class="font-semibold">Important</h2><p class="mt-4 text-sm text-ink-soft">Prototype with fictional data. Not a medical device. Not for urgent communication or real care decisions.</p></div>
     </div>
-    <div class="border-t border-brand-100 py-6 text-center text-sm text-ink-soft">© 2026 HEALNEXIA · Care, connected.</div>
+    <div class="border-t border-brand-100 py-6 text-center text-sm text-ink-soft">© 2026 HEALNEXIA · Concept by Ayesha Afreen, Pharm.D · First prize, INNOVOTHON 2024</div>
   </footer>
 
   <!-- Dialog: join the pilot -->

@@ -202,3 +202,20 @@ test('unknown routes fall back to overview; reset restores seed state', async ()
   await page.waitForSelector('.hero [data-command="acknowledge"]');
   await assertClean();
 });
+
+test('ask a pharmacist and report a suspected side effect', async () => {
+  await go('meds');
+  await page.click('[data-do="compose"][data-ctx="pharmacist"]');
+  await page.waitForSelector('#m-text:focus');
+  assert.equal(await page.inputValue('#m-ctx'), 'pharmacist');
+  assert.match(await page.textContent('#m-to'), /Harbour Pharmacy pharmacist/);
+  await page.fill('#m-text', 'I am thinking of starting vitamin D. Is that OK with my current medicines?');
+  await page.click('#m-send');
+  assert.match(await page.textContent('#h-conv + ul > li:first-child'), /Question for a pharmacist/);
+  await go('meds');
+  await page.click('[data-prefix="sideEffect"][data-ctx="med:ramipril"]');
+  await page.waitForSelector('#m-text:focus');
+  assert.match(await page.textContent('#main'), /pharmacovigilance scheme/);
+  assert.match(await page.inputValue('#m-text'), /^Suspected side effect/);
+  await assertClean();
+});

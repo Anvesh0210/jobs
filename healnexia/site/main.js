@@ -4,6 +4,8 @@
  * No innerHTML or network access: the CSP forbids both.
  */
 
+import { registerServiceWorker } from '../src/lib/pwa.js';
+
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,24}$/;
 
 /** Highlights the nav link for the section currently in view. */
@@ -131,3 +133,4 @@ initScrollspy();
 initMobileMenu();
 document.querySelectorAll('[data-tabs]').forEach(initTabs);
 initDialogs();
+registerServiceWorker();

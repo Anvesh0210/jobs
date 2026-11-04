@@ -10,11 +10,13 @@ import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const PUBLIC = new Set(['index.html', 'app.html', 'styles.css', 'src', 'site', 'assets']);
-const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp' };
+const PUBLIC = new Set(['index.html', 'app.html', 'styles.css', 'sw.js', 'manifest.webmanifest', 'src', 'site', 'assets']);
+const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp', '.webmanifest': 'application/manifest+json' };
+
+export const WORKER_CSP = "default-src 'none'; connect-src 'self'";
 
 export const SECURITY_HEADERS = Object.freeze({
-  'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'",
+  'Content-Security-Policy': "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'",
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'no-referrer',
   'X-Frame-Options': 'DENY',
@@ -49,6 +51,8 @@ export function createAppServer() {
     try {
       if (!file || !(await stat(file)).isFile()) throw new Error('not found');
       const body = await readFile(file);
+      // The service worker fetches same-origin files to fill its offline cache.
+      if (file.endsWith(`${sep}sw.js`)) res.setHeader('Content-Security-Policy', WORKER_CSP);
       res.writeHead(200, { 'Content-Type': TYPES[extname(file)], 'Content-Length': body.length });
       res.end(req.method === 'HEAD' ? undefined : body);
     } catch {

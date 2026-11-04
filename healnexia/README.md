@@ -12,8 +12,12 @@ Requires Node 22 or later. No npm install is needed just to run it, because the 
 npm start            # http://127.0.0.1:8080 (served with production security headers)
 ```
 
-- `/` is the **marketing site** (`index.html`): Tailwind CSS v4, a self-hosted Figtree font and an interactive timeline demo.
-- `/app.html` is the **interactive prototype** (patient and provider views).
+HEALNEXIA is **one installable web app (PWA)**:
+- `/` is the home page (`index.html`). It holds the story, the evidence plan and an interactive timeline, built with Tailwind CSS v4.
+- `/app.html` is the app (patient and provider views). It shares the same design, navigation, manifest and service worker.
+- It can be installed from the browser, and works offline after the first visit (`sw.js` precaches every file).
+
+HEALNEXIA began as an app concept by Ayesha Afreen, Pharm.D, to connect people with pharmacists and other professionals. It won first prize at INNOVOTHON 2024. The site presents it as an evidence-first prototype: trust, pharmacist capacity, benefit and harm are evaluated before anyone relies on it. The app includes **Ask a pharmacist** (supplements and over-the-counter products) and **Report a suspected side effect**.
 
 Both use ES modules, so they must be served over HTTP; opening the files from disk will not work. No Node? Run `python3 -m http.server 8080` in this folder. Any static host works (see [SECURITY.md](SECURITY.md#hosting) for headers).
 

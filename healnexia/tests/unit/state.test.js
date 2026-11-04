@@ -132,6 +132,8 @@ test('messages: validation, urgent confirmation, unknown contexts, persistence',
   const convo = svc.messages.list()[0];
   assert.equal(convo.ctx, 'med:ramipril');
   assert.equal(convo.withWho, 'Harbour Pharmacy team');
+  assert.equal(svc.messages.send('pharmacist', 'Can I take vitamin D with my tablets?').status, 'sent');
+  assert.equal(svc.messages.list()[0].withWho, 'Harbour Pharmacy pharmacist');
 });
 
 test('reminder preferences only accept known medicines', () => {

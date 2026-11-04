@@ -1,6 +1,6 @@
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolvePublicPath, createAppServer, SECURITY_HEADERS } from '../../tools/serve.mjs';
+import { resolvePublicPath, createAppServer, SECURITY_HEADERS, WORKER_CSP } from '../../tools/serve.mjs';
 import { parseRoute } from '../../src/ui/app.js';
 
 test('path resolution blocks traversal, dotfiles, non-public dirs and unknown types', () => {
@@ -24,6 +24,14 @@ test('serves pages with security headers', async () => {
   assert.equal(res.status, 200);
   for (const [k, v] of Object.entries(SECURITY_HEADERS)) assert.equal(res.headers.get(k), v, k);
   assert.match(res.headers.get('content-type'), /text\/html/);
+});
+
+test('service worker gets its own narrow CSP so it can fill the offline cache', async () => {
+  const res = await fetch(`${base}/sw.js`);
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('content-security-policy'), WORKER_CSP);
+  assert.match(res.headers.get('content-type'), /javascript/);
+  assert.equal((await fetch(`${base}/manifest.webmanifest`)).headers.get('content-type'), 'application/manifest+json');
 });
 
 test('rejects non-GET methods and unknown paths', async () => {
