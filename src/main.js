@@ -10,6 +10,7 @@ import { createStore } from './app/store.js';
 import { createServices } from './app/services.js';
 import { parseContext } from './domain/messages.js';
 import { createApp } from './ui/app.js';
+import { registerServiceWorker } from './lib/pwa.js';
 
 const STORAGE_KEY = 'healnexia-prototype';
 
@@ -39,3 +40,4 @@ const store = createStore({ storage, key: STORAGE_KEY, sanitize });
 const svc = createServices({ store, clock, seed });
 
 createApp({ doc: document, win: window, store, svc, clock, seed }).start();
+registerServiceWorker();

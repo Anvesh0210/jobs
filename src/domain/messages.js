@@ -21,9 +21,10 @@ export function validateMessage(input) {
   return { ok: true, text };
 }
 
-/** Context keys are a closed set of known references: "general", "action:<id>" or "med:<id>". */
+/** Context keys are a closed set: "general", "pharmacist", "action:<id>" or "med:<id>". */
 export function parseContext(ctx, { actionIds, medIds }) {
   if (ctx === 'general') return { kind: 'general' };
+  if (ctx === 'pharmacist') return { kind: 'pharmacist' };
   const m = /^(action|med):([A-Za-z0-9-]{1,32})$/.exec(String(ctx));
   if (!m) return null;
   const [, kind, id] = m;
