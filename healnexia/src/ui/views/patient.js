@@ -109,7 +109,7 @@ export function overview(ctx) {
     <section class="card section" aria-labelledby="h-team">
       <h2 id="h-team">Your care team</h2>
       <ul class="grid two">${seed.TEAM.map((t) => html`<li><strong>${t.name}</strong><br>${t.role} · ${t.org}<br><span class="muted small-text">${t.note}</span></li>`)}</ul>
-      <div class="btn-row"><a class="btn secondary" href="#/messages">Send a non-urgent message</a></div>
+      <div class="btn-row"><a class="btn secondary" href="#/messages">Send a non-urgent message</a><button type="button" class="btn secondary" data-do="compose" data-ctx="pharmacist" data-fk="ov-pharm">Ask a pharmacist</button></div>
     </section>`;
 }
 
@@ -201,13 +201,18 @@ export function medications({ svc, clock, seed }) {
   const pharmacy = seed.SOURCES.find((s) => s.name === 'Harbour Pharmacy');
   return html`<h1 tabindex="-1">Medications</h1>
     <p class="lede">Your current medicines as recorded by your providers, with a visible history of changes.</p>
-    ${notice('attn', '⚠', html`<p><strong>Always follow the instructions on your medicine label and from your prescriber.</strong> This page does not give dosing advice. Report suspected side effects or urgent symptoms to a clinician or emergency service, not through messages.</p>${pharmacy.status !== 'ok' ? html`<p>Harbour Pharmacy data is out of date (last updated ${pharmacy.last}).</p>` : ''}`)}
-    <ul class="list">${seed.MEDS.map((m) => html`<li class="row-card">
+    ${notice('attn', '⚠', html`<p><strong>Always follow the instructions on your medicine label and from your prescriber.</strong> This page does not give dosing advice. Severe or urgent symptoms need a clinician or emergency service now, not a message. Non-urgent suspected side effects can be reported from each medicine below.</p>${pharmacy.status !== 'ok' ? html`<p>Harbour Pharmacy data is out of date (last updated ${pharmacy.last}).</p>` : ''}`)}
+    <section class="card pharm-card" aria-labelledby="h-pharm">
+      <h2 id="h-pharm">Thinking of starting a supplement or over-the-counter medicine?</h2>
+      <p>Ask a pharmacist first. They can see your current medicines here, so you don't need to list them again. Many people start vitamins or supplements because of an advert or a social media post; a quick question can avoid an interaction or a duplicate.</p>
+      <div class="btn-row"><button type="button" class="btn" data-do="compose" data-ctx="pharmacist" data-prefix="supplement" data-fk="pharm-ask">Ask a pharmacist</button></div>
+    </section>
+    <ul class="list section">${seed.MEDS.map((m) => html`<li class="row-card">
       <h3>${m.name}</h3>
       ${m.discrepancy ? html`<div class="chips">${chip('warn', '▲', 'Sources disagree')}</div><p>${m.discrepancy}</p>` : html`<div class="chips">${chip('ok', '✓', `Reconciled ${clock.format(m.reconciled)}`)}</div>`}
       ${dl([['Schedule (from source)', m.schedule], ['Reason', m.indication], ['Prescriber', m.prescriber], ['Source', m.source], ['Review date', m.review ? clock.format(m.review) : 'Not set']])}
       <details><summary>Change history</summary><ol class="history">${m.history.map((h) => html`<li><strong>${h.d}</strong><br>${h.t}</li>`)}</ol></details>
-      <div class="btn-row"><button type="button" class="btn secondary" data-do="compose" data-ctx="med:${m.id}" data-fk="med-ask-${m.id}">Ask about this medicine</button></div>
+      <div class="btn-row"><button type="button" class="btn secondary" data-do="compose" data-ctx="med:${m.id}" data-fk="med-ask-${m.id}">Ask about this medicine</button><button type="button" class="btn secondary" data-do="compose" data-ctx="med:${m.id}" data-prefix="sideEffect" data-fk="med-se-${m.id}">Report a suspected side effect</button></div>
       <label class="toggle"><input type="checkbox" data-change="reminder" data-med="${m.id}"${svc.preferences.reminderOn(m.id) ? html` checked` : ''}> Remind me about this medicine</label>
       <p class="hint">Prototype: no notifications are sent. Reminders are prompts only and do not record whether you have taken a medicine.</p>
     </li>`)}</ul>`;
@@ -218,6 +223,7 @@ export function messages({ svc, ui }) {
   return html`<h1 tabindex="-1">Messages</h1>
     <p class="lede">Non-urgent messages linked to a care step, so you never have to retell your story.</p>
     ${notice('warn', '▲', html`<p><strong>Messages are not for emergencies or urgent symptoms.</strong> Expected reply: within 2 working days (fictional). For urgent help call your local emergency number.</p>`)}
+    ${draft.kind === 'sideEffect' ? notice('attn', '⚠', html`<p><strong>Reporting a suspected side effect.</strong> Describe what happened, when it started and which medicine you think is involved. Your care team reviews the report and can pass it to your national pharmacovigilance scheme (for example PvPI in India or the Yellow Card scheme in the UK). If symptoms are severe, such as difficulty breathing or swelling of the face, get urgent help now instead.</p>`) : ''}
     <section class="card" aria-labelledby="h-new"><h2 id="h-new">New message</h2>
       <form id="msgform" data-form="message" novalidate>
         <div class="field"><label for="m-ctx">About</label>

@@ -1,0 +1,202 @@
+/* HEALNEXIA app (app.html) — Tailwind CSS v4 source, same theme as the marketing site.
+   Build: npm run build:css  →  assets/app.css. Class names match those rendered by src/ui. */
+@import "tailwindcss";
+@import "./theme.css";
+@source "../app.html";
+@source "../src";
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-surface font-sans text-base leading-relaxed text-ink antialiased; }
+  h1, h2, h3, h4 { @apply font-semibold tracking-tight text-balance text-ink; }
+  h1 { @apply mb-2 text-3xl md:text-4xl; }
+  h2 { @apply mb-2 text-xl; }
+  h3 { @apply mb-1.5 text-lg; }
+  p { @apply mb-3; }
+  a { @apply text-brand-700 underline-offset-2 hover:text-brand-900; }
+  :focus-visible { @apply rounded-md outline-3 outline-offset-2 outline-brand-500; }
+  #main:focus, h1:focus { outline: none; }
+  ::selection { @apply bg-brand-200 text-brand-950; }
+  label, legend { @apply mb-1.5 block font-semibold; }
+  fieldset { @apply m-0 mb-4 min-w-0 border-0 p-0; }
+  input[type="search"], input[type="text"], select, textarea {
+    @apply block min-h-12 w-full rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-ink shadow-sm transition
+      placeholder:text-ink-soft/60 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 focus:outline-none;
+  }
+  textarea { @apply min-h-28 resize-y; }
+  details { @apply mt-3; }
+  summary { @apply flex min-h-11 cursor-pointer items-center font-semibold text-brand-700; }
+}
+
+@layer components {
+  /* Utilities used by the views */
+  .sr { @apply sr-only; }
+  .muted { @apply text-ink-soft; }
+  .small-text { @apply text-sm; }
+  .lede { @apply max-w-[62ch] text-lg text-ink-soft; }
+  .section { @apply mt-8; }
+  .spaced { @apply mt-3; }
+  .stack { @apply grid gap-4; }
+  .grid { @apply gap-4; }
+  .grid.two { @apply md:grid-cols-2; }
+  .grid.three { @apply md:grid-cols-3; }
+  .eyebrow { @apply mb-1.5 text-xs font-semibold tracking-[0.2em] text-brand-600 uppercase; }
+  .form-error { @apply mt-1 mb-2 text-sm font-medium text-coral-ink empty:hidden; }
+  .msg-text { @apply wrap-anywhere whitespace-pre-wrap; }
+  .hint { @apply mt-1.5 text-sm text-ink-soft; }
+  .field { @apply mb-4; }
+
+  /* Skip link and prototype notice */
+  .skip { @apply sr-only z-[100] rounded-xl bg-brand-900 px-4 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3; }
+  .proto-banner { @apply border-b border-amber-200/70 bg-amber-soft px-4 py-2 text-center text-sm text-amber-ink; }
+
+  /* Header: same frosted bar as the site */
+  .top {
+    @apply sticky top-0 z-40 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-brand-100/80
+      bg-surface/85 py-2.5 backdrop-blur-xl;
+    /* Same centred 80rem content column as the site header. */
+    padding-inline: max(1rem, calc((100% - 80rem) / 2 + 2rem));
+  }
+  .brand { @apply flex min-h-11 items-center gap-2.5 rounded-lg no-underline; }
+  .brand-text { @apply flex flex-col leading-tight; }
+  .brand-name { @apply text-lg font-bold tracking-[0.12em] text-brand-950; }
+  .brand-tag { @apply text-xs text-ink-soft; }
+  .app-links { @apply hidden items-center gap-1 lg:flex; }
+  .app-links a { @apply inline-flex min-h-10 items-center rounded-full px-3 text-[0.95rem] text-ink-soft no-underline transition hover:bg-brand-50 hover:text-brand-800; }
+  .top-tools { @apply flex flex-wrap items-center gap-2; }
+  .persona { @apply inline-flex rounded-2xl border border-brand-100 bg-white/80 p-1 shadow-sm; }
+  .persona a {
+    @apply inline-flex min-h-10 items-center rounded-xl px-4 text-sm font-semibold text-brand-900 no-underline transition
+      hover:bg-brand-50 aria-[current=page]:bg-brand-800 aria-[current=page]:text-white aria-[current=page]:shadow-card;
+  }
+
+  /* Layout and side navigation */
+  .shell { @apply mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10 lg:px-8 lg:py-10; }
+  .content, main { @apply min-w-0; }
+  .side ul { @apply flex flex-wrap gap-2 lg:sticky lg:top-24 lg:flex-col lg:flex-nowrap lg:gap-1; }
+  .side a {
+    @apply flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-brand-100 bg-white px-4 font-medium text-ink-soft
+      no-underline shadow-sm transition hover:border-brand-200 hover:text-brand-900
+      lg:border-transparent lg:bg-transparent lg:shadow-none lg:hover:bg-white
+      aria-[current=page]:border-brand-800 aria-[current=page]:bg-brand-800 aria-[current=page]:text-white aria-[current=page]:shadow-card;
+  }
+  .nav-badge { @apply rounded-full bg-amber-soft px-2 text-xs font-bold text-amber-ink; }
+  .side a[aria-current="page"] .nav-badge { @apply bg-white text-brand-900; }
+
+  /* Cards */
+  .card, .row-card, .tl-item, .work-item { @apply min-w-0 rounded-3xl border border-brand-100 bg-white p-5 shadow-card md:p-6; }
+  .card > :last-child, .row-card > :last-child { @apply mb-0; }
+  .card.hero {
+    @apply relative overflow-hidden rounded-[2rem] border-brand-200 bg-linear-to-br from-brand-100 via-white to-aqua p-6 shadow-float md:p-8;
+  }
+  .card.hero h2 { @apply text-2xl md:text-3xl; }
+  .pharm-card { @apply border-brand-200 bg-linear-to-br from-white to-aqua/70; }
+  .list { @apply grid gap-4; }
+  .row-card h3 { @apply mb-1; }
+  .meta { @apply mb-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-soft; }
+  .dl { @apply my-3 grid grid-cols-1 gap-x-4 gap-y-1 text-[0.95rem] sm:grid-cols-[11rem_1fr]; }
+  .dl dt { @apply mt-2 font-semibold text-ink-soft sm:mt-0; }
+  .dl dd { @apply m-0 wrap-anywhere; }
+
+  /* Chips: identical to the site */
+  .chips { @apply mt-1 mb-3 flex flex-wrap gap-1.5; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  .chip.neutral { @apply bg-slate-100 text-slate-700; }
+  .chip.info { @apply bg-blue-100 text-blue-800; }
+  .chip.attn { @apply bg-amber-soft text-amber-ink; }
+  .chip.ok { @apply bg-brand-100 text-brand-900; }
+  .chip.warn { @apply bg-coral-soft text-coral-ink; }
+
+  /* Buttons: same as the site's btn-primary / btn-ghost */
+  .btn {
+    @apply inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-brand-800 bg-brand-800 px-5
+      font-semibold text-white no-underline shadow-card transition duration-200 hover:bg-brand-900 hover:text-white hover:shadow-float
+      active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn.secondary { @apply border-brand-200 bg-white/80 text-brand-900 shadow-sm backdrop-blur hover:border-brand-400 hover:bg-white hover:text-brand-900 hover:shadow-card; }
+  .btn.ghost { @apply border-transparent bg-transparent text-brand-900 underline shadow-none hover:bg-brand-50 hover:text-brand-900 hover:shadow-none; }
+  .btn.small { @apply min-h-10 rounded-xl px-3.5 text-sm; }
+  .btn-row { @apply mt-4 flex flex-wrap gap-2; }
+
+  /* Filters, toggles, radios */
+  .filters { @apply mt-3 mb-4 flex flex-wrap gap-2; }
+  .filters button {
+    @apply min-h-11 cursor-pointer rounded-full border border-brand-200 bg-white px-4 font-medium text-brand-900 transition
+      hover:border-brand-400 aria-pressed:border-brand-800 aria-pressed:bg-brand-800 aria-pressed:text-white;
+  }
+  .filter-form { @apply grid gap-3 md:grid-cols-[2fr_1fr_1fr]; }
+  .toggle { @apply m-0 inline-flex min-h-11 cursor-pointer items-center gap-3 font-medium; }
+  .toggle input { @apply size-5 accent-brand-700; }
+  .radio-row { @apply flex flex-wrap gap-2; }
+  .radio-row label {
+    @apply m-0 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-brand-200 bg-white px-4 font-medium transition
+      hover:border-brand-400 has-checked:border-brand-700 has-checked:bg-brand-100;
+  }
+  .radio-row input { @apply size-5 accent-brand-700; }
+
+  /* Notices */
+  .notice { @apply my-4 flex gap-3 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3.5 text-[0.95rem] text-blue-900; }
+  .notice.attn { @apply border-amber-200 bg-amber-soft text-amber-ink; }
+  .notice.warn { @apply border-coral-ink/20 bg-coral-soft text-coral-ink; }
+  .notice > span:first-child { @apply font-bold; }
+  .notice p:last-child { @apply mb-0; }
+
+  /* Stat tiles: like the site's hero stats */
+  .tiles { @apply grid grid-cols-2 gap-3 md:grid-cols-4; }
+  .tiles li { @apply rounded-2xl border border-brand-100 bg-white p-4 shadow-card; }
+  .tiles strong { @apply block text-3xl leading-tight font-bold text-brand-900; }
+  .tiles span { @apply text-sm text-ink-soft; }
+
+  /* Care progress steps */
+  .steps { @apply mt-2 grid gap-2.5; }
+  .steps li { @apply grid grid-cols-[2.25rem_1fr] items-start gap-3; }
+  .steps .dot { @apply grid size-8 place-items-center rounded-full border-2 border-brand-200 bg-white text-sm font-bold text-brand-700; }
+  .steps li.done .dot { @apply border-brand-700 bg-brand-700 text-white; }
+  .steps li.current .dot { @apply border-amber-ink bg-amber-soft text-amber-ink; }
+  .step-title { @apply font-semibold; }
+
+  /* History, timeline and episodes */
+  .history { @apply my-2 ml-1 grid gap-3 border-l-2 border-brand-200 pl-4 text-sm; }
+  .history li { @apply relative; }
+  .history li::before { @apply absolute top-1.5 -left-[1.3rem] size-2.5 rounded-full bg-brand-600 content-['']; }
+  .history h4, h4.small-text { @apply mt-3 mb-0; }
+  .timeline { @apply relative grid gap-4; }
+  .tl-date { @apply text-sm font-bold text-brand-800; }
+  .episode-group { @apply rounded-3xl border border-dashed border-brand-300 bg-brand-50/70 p-4 md:p-5; }
+  .episode-group > h3 { @apply mb-3; }
+
+  /* Messages */
+  .thread { @apply my-2 grid gap-2.5; }
+  .msg { @apply max-w-[52rem] rounded-2xl rounded-bl-sm bg-brand-50 px-4 py-2.5; }
+  .msg.me { @apply ml-auto rounded-2xl rounded-br-sm bg-blue-50; }
+  .msg .who { @apply text-sm font-bold; }
+  .msg .when { @apply text-xs text-ink-soft; }
+
+  /* Provider */
+  .work { @apply grid gap-3; }
+  .work-item { @apply grid gap-3 lg:grid-cols-[minmax(0,2fr)_minmax(0,2fr)_auto] lg:items-center; }
+  .work-item h3 { @apply mb-0.5 text-base; }
+  .sync-stale { @apply font-semibold text-amber-ink; }
+
+  dialog {
+    @apply m-auto max-h-[calc(100dvh-1.5rem)] w-[min(42rem,calc(100vw-1.5rem))] overflow-auto rounded-3xl border border-brand-100 bg-white p-6
+      text-ink shadow-float md:p-8;
+  }
+  dialog::backdrop { background: rgb(7 42 53 / 0.55); backdrop-filter: blur(4px); }
+  dialog[open] { animation: dialog-in 220ms ease-out; }
+  .dialog-head { @apply flex items-start justify-between gap-4; }
+
+  .foot { @apply mx-auto mb-8 max-w-7xl px-4 text-sm text-ink-soft sm:px-6 lg:px-8; }
+}
+
+@keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; scroll-behavior: auto !important; }
+}
+@media (prefers-contrast: more) {
+  .card, .row-card, .tl-item, .work-item, .tiles li { border-width: 2px; border-color: var(--color-brand-700); }
+  .muted, .hint, .meta { color: var(--color-ink); }
+}
+@media (forced-colors: active) { .chip, .btn { border: 1px solid CanvasText; } }
+@media print { .proto-banner, .side, .top-tools, .btn-row, .app-links { display: none; } }

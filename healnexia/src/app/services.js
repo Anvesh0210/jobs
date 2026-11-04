@@ -67,12 +67,13 @@ export function createServices({ store, clock, seed }) {
     describe(ctx) {
       const p = contexts.parse(ctx);
       if (!p || p.kind === 'general') return { subject: 'General question', withWho: 'Riverside Medical Practice care team' };
+      if (p.kind === 'pharmacist') return { subject: 'Question for a pharmacist', withWho: 'Harbour Pharmacy pharmacist' };
       if (p.kind === 'action') { const a = actions.get(p.id); return { subject: a.title, withWho: `${a.org} team` }; }
       const m = medById.get(p.id); return { subject: m.name, withWho: `${m.replyTo} team` };
     },
     /** Message contexts the patient can choose: general, open actions, and medications. */
     options() {
-      return [{ value: 'general', label: 'General (non-urgent)' }]
+      return [{ value: 'general', label: 'General (non-urgent)' }, { value: 'pharmacist', label: 'Ask a pharmacist (medicines, supplements, over-the-counter)' }]
         .concat(actions.list().filter((a) => a.status !== 'completed' && a.status !== 'cancelled').map((a) => ({ value: `action:${a.id}`, label: `Action: ${a.title}` })))
         .concat(seed.MEDS.map((m) => ({ value: `med:${m.id}`, label: `Medication: ${m.name}` })));
     }

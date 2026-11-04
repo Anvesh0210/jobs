@@ -94,6 +94,7 @@ test('message contexts are a closed set', () => {
   const ids = { actionIds: ['A-1042'], medIds: ['ramipril'] };
   assert.deepEqual(parseContext('action:A-1042', ids), { kind: 'action', id: 'A-1042' });
   assert.deepEqual(parseContext('general', ids), { kind: 'general' });
+  assert.deepEqual(parseContext('pharmacist', ids), { kind: 'pharmacist' });
   for (const bad of ['action:A-9999', 'med:../../x', 'action:A-1042"><script>', 'other:1', '', null]) {
     assert.equal(parseContext(bad, ids), null, String(bad));
   }

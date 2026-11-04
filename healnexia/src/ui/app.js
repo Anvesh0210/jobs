@@ -27,7 +27,11 @@ export function parseRoute(hash) {
   return m && Object.hasOwn(ROUTES, m[1]) ? m[1] : 'overview';
 }
 
-const COMPOSE_PREFIX = Object.freeze({ problem: 'Problem with this step: ' });
+const COMPOSE_PREFIX = Object.freeze({
+  problem: 'Problem with this step: ',
+  sideEffect: 'Suspected side effect. What happened and when it started: ',
+  supplement: 'I am thinking of starting: '
+});
 
 export function createApp({ doc, win, store, svc, clock, seed }) {
   const $ = (sel) => doc.querySelector(sel);
@@ -110,7 +114,8 @@ export function createApp({ doc, win, store, svc, clock, seed }) {
     command: (t) => { announce(svc.actions.run(t.dataset.id, t.dataset.command)); render(); },
     compose: (t) => {
       const context = svc.contexts.isKnown(t.dataset.ctx) ? t.dataset.ctx : 'general';
-      ui.compose = { ctx: context, text: COMPOSE_PREFIX[t.dataset.prefix] || '' };
+      const kind = Object.hasOwn(COMPOSE_PREFIX, t.dataset.prefix) ? t.dataset.prefix : null;
+      ui.compose = { ctx: context, text: kind ? COMPOSE_PREFIX[kind] : '', kind };
       ui.urgentConfirmed = false;
       navigate('messages');
     },
@@ -200,7 +205,7 @@ export function createApp({ doc, win, store, svc, clock, seed }) {
       const key = e.target.dataset?.input;
       if (key && Object.hasOwn(inputs, key)) guard(() => inputs[key](e.target));
       if (e.target.id === 'm-text') {
-        ui.compose = { ctx: $('#m-ctx').value, text: e.target.value };
+        ui.compose = { ctx: $('#m-ctx').value, text: e.target.value, kind: ui.compose?.kind || null };
         ui.urgentConfirmed = false; $('#m-err').textContent = '';
       }
     });

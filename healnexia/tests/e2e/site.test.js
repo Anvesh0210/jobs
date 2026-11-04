@@ -56,7 +56,7 @@ test('every in-page link has a target and every page link resolves', async () =>
 
 test('sections follow the reference flow', async () => {
   const ids = await page.$$eval('main > section', (s) => s.map((x) => x.id));
-  assert.deepEqual(ids, ['top', 'problem', 'solution', 'how-it-works', 'security', 'timeline', 'personas', 'impact', 'get-started', 'faq', 'access']);
+  assert.deepEqual(ids, ['top', 'problem', 'story', 'solution', 'how-it-works', 'security', 'timeline', 'evidence', 'personas', 'impact', 'get-started', 'faq', 'access']);
 });
 
 test('timeline tabs: click, arrow keys, Home/End, single visible panel', async () => {
@@ -137,4 +137,29 @@ test('reduced motion: marquees stop and duplicates are hidden', async () => {
   assert.equal(await p.$eval('.marquee-track', (el) => getComputedStyle(el).animationName), 'none');
   assert.equal(await p.$eval('.marquee-dup', (el) => getComputedStyle(el).display), 'none');
   await ctx.close();
+});
+
+test('one web app: manifest, service worker, shared navigation, works offline', async () => {
+  const manifest = await page.$eval('link[rel=manifest]', (l) => l.href);
+  assert.equal((await page.request.get(manifest)).status(), 200);
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.goto(`${base}app.html#/overview`);
+  await page.waitForSelector('#main h1');
+  assert.ok(await page.isVisible('.app-links a[href="./#story"]'), 'app links back to the site');
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.context().setOffline(true);
+  await page.reload();
+  await page.waitForSelector('#main h1');
+  assert.match(await page.textContent('#main h1'), /Good morning/);
+  await page.goto(base);
+  assert.match(await page.textContent('h1'), /HEALNEXIA/);
+  await page.context().setOffline(false);
+});
+
+test('story and evidence sections credit the founder and claim no outcomes', async () => {
+  const story = await page.textContent('#story');
+  assert.match(story, /Ayesha Afreen/);
+  assert.match(story, /INNOVOTHON 2024/);
+  assert.match(story, /202 people/);
+  assert.match(await page.textContent('#evidence'), /No outcomes are claimed yet/);
 });
