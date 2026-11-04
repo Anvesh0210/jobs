@@ -1,5 +1,7 @@
 name: Deploy HEALNEXIA to GitHub Pages
 
+# Publishes the public site files to the gh-pages branch, which GitHub Pages serves.
+# Works without changing repository Pages settings ("Deploy from a branch: gh-pages").
 on:
   push:
     branches: [main]
@@ -7,38 +9,35 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Collect public files only (no tests, tooling or source maps)
+      - name: Collect public files only (no tests, tooling or sources)
         working-directory: healnexia
         run: |
-          mkdir -p ../_site
-          cp -r index.html app.html styles.css src site assets ../_site/
-          rm -f ../_site/site/styles.css
-          touch ../_site/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          mkdir -p "$RUNNER_TEMP/site"
+          cp -r index.html app.html styles.css src site assets "$RUNNER_TEMP/site/"
+          rm -f "$RUNNER_TEMP/site/site/styles.css"
+          touch "$RUNNER_TEMP/site/.nojekyll"
+      - name: Push to gh-pages
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages --depth=1
+          git checkout -B gh-pages origin/gh-pages
+          git rm -rq --ignore-unmatch .
+          cp -r "$RUNNER_TEMP/site/." .
+          git add -A
+          if git diff --cached --quiet; then echo "No changes to publish"; exit 0; fi
+          git commit -q -m "Publish HEALNEXIA site from ${SHA::7}"
+          git push origin gh-pages
