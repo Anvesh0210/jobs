@@ -93,7 +93,13 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
   .side ul { flex-direction: column; flex-wrap: nowrap; position: sticky; top: 16px; }
   .side a { justify-content: space-between; }
 }
-main { min-width: 0; }
+.content, main { min-width: 0; }
+.form-error { color: var(--coral-800); font-size: .875rem; margin: .25rem 0 .5rem; }
+.form-error:empty { display: none; }
+.spaced { margin-top: .75rem; }
+.stack { display: grid; gap: .9rem; }
+.msg-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.history h4, h4.small-text { margin: .5rem 0 0; }
 .lede { font-size: 1.05rem; color: var(--muted); max-width: 62ch; }
 .section { margin-top: 1.75rem; }
 .grid { display: grid; gap: 1rem; }

@@ -1,0 +1,24 @@
+{
+  "name": "healnexia-prototype",
+  "version": "2.1.0",
+  "private": true,
+  "description": "HEALNEXIA continuity-of-care prototype. Fictional data only; not a medical device.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "build:css": "tailwindcss -i site/styles.css -o assets/site.css --minify",
+    "watch:css": "tailwindcss -i site/styles.css -o assets/site.css --watch",
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "test:e2e": "node --test --test-concurrency=1 \"tests/e2e/*.test.js\"",
+    "check": "node tools/check.mjs",
+    "ci": "npm run check && npm test && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@fontsource-variable/figtree": "5.3.0",
+    "@tailwindcss/cli": "4.3.3",
+    "tailwindcss": "4.3.3"
+  }
+}

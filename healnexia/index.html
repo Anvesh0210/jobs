@@ -3,51 +3,722 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HEALNEXIA Prototype</title>
-  <meta name="description" content="HEALNEXIA: care, connected. Interactive prototype of a patient-centred continuity-of-care platform. Fictional demonstration data only.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f5d63'/%3E%3Ccircle cx='13' cy='16' r='7' fill='none' stroke='%23dff0ec' stroke-width='2.5'/%3E%3Ccircle cx='19' cy='16' r='7' fill='none' stroke='%23dff0ec' stroke-width='2.5'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
+  <title>HEALNEXIA · Care, connected</title>
+  <meta name="description" content="HEALNEXIA connects visits, results, medicines and follow-ups from every provider into one calm care journey, so the next step is always clear and nothing important is overlooked.">
+  <meta name="theme-color" content="#0f4f61">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:title" content="HEALNEXIA · Care, connected">
+  <meta property="og:description" content="One trustworthy care journey across every provider, with the next step always clear.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f4f61'/%3E%3Ccircle cx='13' cy='16' r='7' fill='none' stroke='%23c4eefa' stroke-width='2.5'/%3E%3Ccircle cx='19' cy='16' r='7' fill='none' stroke='%23c4eefa' stroke-width='2.5'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="module" src="site/main.js"></script>
 </head>
-<body>
-  <a class="skip" href="#main">Skip to main content</a>
+<body class="overflow-x-clip">
+  <!-- Icon sprite (Lucide-style, ISC-licensed shapes redrawn) -->
+  <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.31L4.2 19.2A2 2 0 0 0 6 22h12a2 2 0 0 0 1.8-2.8L14 9.31V2M8.5 2h7M7 16h10"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  </svg>
 
-  <div class="proto-banner" role="note">
-    <strong>Prototype · fictional data.</strong>
-    Not a medical device, no medical advice, not connected to any healthcare system.
-    For urgent help, contact your local emergency number (for example 999, 112 or 911).
-  </div>
+  <a href="#main" class="sr-only z-[100] rounded-xl bg-brand-900 px-4 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Skip to main content</a>
 
-  <header class="top">
-    <a class="brand" href="#/overview" aria-label="HEALNEXIA home">
-      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-        <rect width="32" height="32" rx="9" fill="#0f5d63"/>
-        <circle cx="13" cy="16" r="7" fill="none" stroke="#dff0ec" stroke-width="2.5"/>
-        <circle cx="19" cy="16" r="7" fill="none" stroke="#dff0ec" stroke-width="2.5"/>
-      </svg>
-      <span class="brand-text"><span class="brand-name">HEALNEXIA</span><span class="brand-tag">Care, connected.</span></span>
-    </a>
-    <div class="top-tools">
-      <nav class="persona" aria-label="Choose view">
-        <a id="p-patient" href="#/overview">Patient view</a>
-        <a id="p-provider" href="#/dashboard">Provider view</a>
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-brand-100/80 bg-surface/85 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <a href="#top" class="flex items-center gap-2.5 rounded-lg" aria-label="HEALNEXIA home">
+        <svg class="size-9" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="fill-brand-800"/><circle cx="13" cy="16" r="7" fill="none" class="stroke-aqua" stroke-width="2.5"/><circle cx="19" cy="16" r="7" fill="none" class="stroke-aqua" stroke-width="2.5"/></svg>
+        <span class="text-lg font-bold tracking-[0.12em] text-brand-950">HEALNEXIA</span>
+      </a>
+
+      <nav aria-label="Sections" class="hidden lg:block">
+        <ul class="flex items-center gap-1 text-[0.95rem]" data-scrollspy>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#problem">Problem</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#solution">Solution</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#how-it-works">How it works</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#security">Security</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#timeline">Timeline</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#personas">Personas</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#impact">Impact</a></li>
+          <li><a class="rounded-full px-3 py-2 text-ink-soft transition hover:text-brand-800 aria-[current=true]:bg-brand-100 aria-[current=true]:text-brand-900" href="#faq">FAQ</a></li>
+        </ul>
       </nav>
-      <button type="button" class="btn ghost small" data-do="reset:all">Reset demo</button>
+
+      <div class="flex items-center gap-2">
+        <a href="app.html" class="btn btn-ghost hidden min-h-10 rounded-xl px-4 text-sm sm:inline-flex">Live prototype</a>
+        <button type="button" class="btn btn-primary hidden min-h-10 rounded-xl px-4 text-sm sm:inline-flex" data-open-dialog="join-dialog">Join the pilot</button>
+        <button type="button" class="inline-flex size-11 items-center justify-center rounded-xl border border-brand-200 bg-white text-brand-900 lg:hidden" popovertarget="mobile-menu" aria-label="Open menu">
+          <svg class="icon size-5"><use href="#i-menu"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <div class="shell">
-    <nav id="nav" class="side" aria-label="Main"></nav>
-    <main id="main" tabindex="-1"></main>
+  <!-- Mobile menu (popover API: Esc and light-dismiss built in) -->
+  <div id="mobile-menu" popover class="m-0 ml-auto h-dvh w-[min(22rem,100vw)] flex-col gap-1 border-l border-brand-100 bg-white p-5 shadow-float">
+    <div class="mb-4 flex items-center justify-between">
+      <span class="font-bold tracking-[0.12em] text-brand-950">HEALNEXIA</span>
+      <button type="button" popovertarget="mobile-menu" popovertargetaction="hide" class="inline-flex size-11 items-center justify-center rounded-xl border border-brand-200" aria-label="Close menu"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <nav aria-label="Sections (mobile)">
+      <ul class="flex flex-col text-lg" data-close-menu>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#problem">Problem</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#solution">Solution</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#how-it-works">How it works</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#security">Security</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#timeline">Timeline</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#personas">Personas</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#impact">Impact</a></li>
+        <li><a class="block rounded-xl px-3 py-3 hover:bg-brand-50" href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="mt-auto grid gap-2">
+      <a href="app.html" class="btn btn-ghost">Live prototype</a>
+      <button type="button" class="btn btn-primary" data-open-dialog="join-dialog">Join the pilot</button>
+    </div>
   </div>
 
-  <footer class="foot">
-    <p>All people, organisations, dates, records and clinical details are fictional. Demo date fixed at 4 November 2026.
-    Interaction state is stored only in this browser (local storage) and contains no real data.</p>
+  <main id="main" tabindex="-1">
+    <!-- Hero -->
+    <section id="top" class="relative isolate overflow-hidden">
+      <div class="bg-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_top,#000_30%,transparent_70%)]" aria-hidden="true"></div>
+      <div class="absolute -top-40 right-0 -z-10 size-[36rem] rounded-full bg-aqua/60 blur-3xl" aria-hidden="true"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 pt-14 pb-16 sm:px-6 md:pt-20 lg:grid-cols-2 lg:px-8 lg:pb-24">
+        <div class="text-center lg:text-left">
+          <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/80 px-3 py-1 text-sm font-semibold text-brand-800 shadow-sm">
+            <span class="size-2 rounded-full bg-brand-500 motion-safe:animate-pulse" aria-hidden="true"></span>
+            Continuity of care · Prototype
+          </p>
+          <h1 class="text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl xl:text-7xl">
+            Your care journey, connected with
+            <span class="text-gradient block pt-1 font-extrabold tracking-[0.04em]">HEALNEXIA</span>
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-ink-soft lg:mx-0">
+            HEALNEXIA brings visits, results, medicines and follow-ups from every provider into one calm journey, so you always know what happens next and nothing important is overlooked.
+          </p>
+          <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <button type="button" class="btn btn-primary w-full sm:w-auto" data-open-dialog="join-dialog">Join the pilot</button>
+            <a href="app.html" class="btn btn-ghost w-full sm:w-auto">Try the live prototype <svg class="icon size-4"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="mt-5 text-sm text-ink-soft">Fictional demo data · Not a medical device · No medical advice</p>
+        </div>
+
+        <!-- Hero visual: product mock-up -->
+        <div class="relative mx-auto w-full max-w-xl" aria-hidden="true">
+          <div class="relative rounded-[2rem] bg-linear-to-br from-brand-100 via-white to-aqua p-5 shadow-float ring-1 ring-brand-100 sm:p-8">
+            <div class="rounded-2xl bg-white p-5 shadow-card">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Your next step</p>
+                <span class="chip bg-amber-soft text-amber-ink">! Needs attention</span>
+              </div>
+              <p class="mt-2 text-xl font-semibold text-ink">Follow-up blood test</p>
+              <p class="mt-1 text-sm text-ink-soft">Requested by Dr Nair after your dose change · due in 5 days</p>
+              <div class="mt-4 flex gap-2"><span class="rounded-xl bg-brand-800 px-4 py-2 text-sm font-semibold text-white">Acknowledge</span><span class="rounded-xl border border-brand-200 px-4 py-2 text-sm font-semibold text-brand-900">Book</span></div>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3">
+              <div class="rounded-2xl bg-white p-3 text-center shadow-card"><p class="text-2xl font-bold text-brand-900">5</p><p class="text-xs text-ink-soft">Open</p></div>
+              <div class="rounded-2xl bg-white p-3 text-center shadow-card"><p class="text-2xl font-bold text-brand-900">2</p><p class="text-xs text-ink-soft">With providers</p></div>
+              <div class="rounded-2xl bg-white p-3 text-center shadow-card"><p class="text-2xl font-bold text-brand-900">3</p><p class="text-xs text-ink-soft">Completed</p></div>
+            </div>
+            <div class="mt-4 rounded-2xl bg-white p-4 shadow-card">
+              <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Care progress</p>
+              <ol class="mt-3 flex items-center justify-between">
+                <li class="grid size-8 place-items-center rounded-full bg-brand-700 text-white"><svg class="icon size-4"><use href="#i-check"/></svg></li>
+                <li class="h-0.5 flex-1 bg-brand-600"></li>
+                <li class="grid size-8 place-items-center rounded-full bg-brand-700 text-white"><svg class="icon size-4"><use href="#i-check"/></svg></li>
+                <li class="h-0.5 flex-1 bg-brand-600"></li>
+                <li class="grid size-8 place-items-center rounded-full bg-brand-700 text-white"><svg class="icon size-4"><use href="#i-check"/></svg></li>
+                <li class="h-0.5 flex-1 bg-brand-200"></li>
+                <li class="grid size-8 place-items-center rounded-full border-2 border-amber-ink bg-amber-soft text-xs font-bold text-amber-ink">4</li>
+                <li class="h-0.5 flex-1 bg-brand-200"></li>
+                <li class="grid size-8 place-items-center rounded-full border-2 border-brand-200 bg-white text-xs font-bold text-brand-700">5</li>
+              </ol>
+            </div>
+            <div class="absolute -bottom-6 -left-4 hidden items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-float ring-1 ring-brand-100 motion-safe:animate-float sm:flex">
+              <span class="grid size-9 place-items-center rounded-xl bg-brand-100 text-brand-800"><svg class="icon size-5"><use href="#i-shield"/></svg></span>
+              <span class="text-sm"><span class="block font-semibold">Verified by source</span><span class="text-ink-soft">Riverside Medical Practice</span></span>
+            </div>
+            <div class="absolute -top-5 -right-3 hidden items-center gap-2 rounded-2xl bg-brand-900 px-4 py-2.5 text-sm font-semibold text-white shadow-float motion-safe:animate-float sm:flex">
+              <svg class="icon size-4"><use href="#i-sync"/></svg> 4 sources connected
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standards strip -->
+      <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <p class="text-center font-medium text-ink-soft">Designed around open healthcare and accessibility standards</p>
+        <div class="pause-on-hover mask-fade-x mt-6 overflow-hidden" role="region" aria-label="Standards">
+          <ul class="marquee-track flex w-max animate-marquee gap-14 py-2 text-2xl font-semibold whitespace-nowrap text-ink-soft/60">
+            <li>HL7 FHIR R4</li><li>SNOMED CT</li><li>LOINC</li><li>ICD-11</li><li>OpenID Connect</li><li>OAuth 2.1</li><li>WCAG 2.2 AA</li><li>DICOM</li>
+            <li class="marquee-dup" aria-hidden="true">HL7 FHIR R4</li><li class="marquee-dup" aria-hidden="true">SNOMED CT</li><li class="marquee-dup" aria-hidden="true">LOINC</li><li class="marquee-dup" aria-hidden="true">ICD-11</li><li class="marquee-dup" aria-hidden="true">OpenID Connect</li><li class="marquee-dup" aria-hidden="true">OAuth 2.1</li><li class="marquee-dup" aria-hidden="true">WCAG 2.2 AA</li><li class="marquee-dup" aria-hidden="true">DICOM</li>
+          </ul>
+        </div>
+        <p class="mt-3 text-center text-xs text-ink-soft">Standards alignment is a design goal of the product, not a certification or endorsement.</p>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section id="problem" class="py-20 md:py-28" aria-labelledby="problem-title">
+      <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8" data-reveal>
+        <p class="eyebrow">The problem</p>
+        <h2 id="problem-title" class="section-title mx-auto mt-4 max-w-4xl">Care happens in many places. The follow-up gets lost between them.</h2>
+        <p class="section-lede mt-5">A GP, a hospital, a lab and a pharmacy each hold part of the story. Notes, results and instructions stay scattered, and the patient becomes the informal glue that holds everything together.</p>
+      </div>
+      <div class="pause-on-hover mask-fade-x mx-auto mt-12 grid max-w-7xl gap-4 overflow-hidden px-4" role="region" aria-label="Common care gaps">
+        <ul class="marquee-track flex w-max animate-marquee gap-4">
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">A test requested but never booked</li>
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">A result with no clear next step</li>
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">An out-of-date medication list</li>
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">Who owns the next step?</li>
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">Retelling your story at every visit</li>
+          <li class="rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white">Waiting, or forgotten? Hard to tell</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">A test requested but never booked</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">A result with no clear next step</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">An out-of-date medication list</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">Who owns the next step?</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">Retelling your story at every visit</li>
+          <li class="marquee-dup rounded-full bg-brand-800 px-5 py-2.5 font-medium whitespace-nowrap text-white" aria-hidden="true">Waiting, or forgotten? Hard to tell</li>
+        </ul>
+        <ul class="marquee-track flex w-max animate-marquee-reverse gap-4">
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">Letters stuck in an inbox</li>
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">Incomplete records that look complete</li>
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">Questions sent without context</li>
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">Reminders from three different places</li>
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">Paper instructions, lost</li>
+          <li class="rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950">No single source of truth</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">Letters stuck in an inbox</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">Incomplete records that look complete</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">Questions sent without context</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">Reminders from three different places</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">Paper instructions, lost</li>
+          <li class="marquee-dup rounded-full bg-aqua px-5 py-2.5 font-medium whitespace-nowrap text-brand-950" aria-hidden="true">No single source of truth</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Solution: stacked cards -->
+    <section id="solution" class="py-20 md:py-28" aria-labelledby="solution-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">The solution</p>
+          <h2 id="solution-title" class="section-title mx-auto mt-4 max-w-4xl">One trustworthy journey, with the next step always clear</h2>
+          <p class="section-lede mt-5">HEALNEXIA doesn't replace your providers' systems. It connects them into a coordination layer you can understand, where every item shows where it came from.</p>
+        </div>
+
+        <ol class="mt-14 flex flex-col gap-6">
+          <!-- 1 -->
+          <li class="sticky top-20" data-stack-card>
+            <div class="clip-notch-left bg-diamonds relative overflow-hidden rounded-3xl bg-brand-800 text-white">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <div class="md:col-span-3">
+                  <p class="font-semibold text-aqua">01</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Next step first</h3>
+                  <p class="mt-4 text-lg font-light text-brand-50 md:text-2xl">The most important open action, why it matters and who asked for it, all at a glance. Calm, without alarm.</p>
+                </div>
+                <div class="rounded-2xl bg-white p-5 text-ink shadow-float md:col-span-2" aria-hidden="true">
+                  <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Your next step</p>
+                  <p class="mt-1 text-lg font-semibold">Follow-up blood test</p>
+                  <div class="mt-2 flex flex-wrap gap-1.5"><span class="chip bg-amber-soft text-amber-ink">! Needs attention</span><span class="chip bg-brand-100 text-brand-900">✓ Verified by GP</span></div>
+                  <p class="mt-3 text-sm text-ink-soft">Ordered by: past due → team priority → nearest date. Administrative, never clinical urgency.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- 2 -->
+          <li class="sticky top-24" data-stack-card>
+            <div class="clip-notch-right bg-diamonds relative overflow-hidden rounded-3xl bg-aqua text-brand-900">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <div class="order-2 rounded-2xl bg-white p-5 shadow-float md:order-1 md:col-span-2" aria-hidden="true">
+                  <ol class="relative ml-2 grid gap-4 border-l-2 border-brand-200 pl-5 text-sm">
+                    <li class="relative"><span class="absolute top-1 -left-[1.62rem] size-3 rounded-full bg-brand-600"></span><b class="text-ink">21 Oct</b> · GP review</li>
+                    <li class="relative"><span class="absolute top-1 -left-[1.62rem] size-3 rounded-full bg-brand-600"></span><b class="text-ink">21 Oct</b> · Dose changed</li>
+                    <li class="relative"><span class="absolute top-1 -left-[1.62rem] size-3 rounded-full bg-brand-600"></span><b class="text-ink">25 Oct</b> · Result received</li>
+                    <li class="relative"><span class="absolute top-1 -left-[1.62rem] size-3 rounded-full border-2 border-amber-ink bg-amber-soft"></span><b class="text-ink">2 Nov</b> · Blood test requested</li>
+                  </ol>
+                </div>
+                <div class="order-1 md:order-2 md:col-span-3 md:text-right">
+                  <p class="font-semibold text-brand-600">02</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">See the whole journey</h3>
+                  <p class="mt-4 text-lg font-light md:text-2xl">Consultations, tests, referrals and medicines from every provider, in one chronological timeline grouped into episodes.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- 3 -->
+          <li class="sticky top-28" data-stack-card>
+            <div class="clip-notch-left bg-diamonds relative overflow-hidden rounded-3xl bg-brand-800 text-white">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <div class="md:col-span-3">
+                  <p class="font-semibold text-aqua">03</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Every action has an owner</h3>
+                  <p class="mt-4 text-lg font-light text-brand-50 md:text-2xl">Requested by, responsible party, due date and status. No more guessing who acts next, and no duplicate reminders.</p>
+                </div>
+                <dl class="grid gap-3 rounded-2xl bg-white p-5 text-sm text-ink shadow-float md:col-span-2" aria-hidden="true">
+                  <div class="flex justify-between gap-3"><dt class="text-ink-soft">Requested by</dt><dd class="font-semibold">Dr Marcus Obi</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-ink-soft">Next step owner</dt><dd class="font-semibold">Northbank booking team</dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-ink-soft">Status</dt><dd><span class="chip bg-amber-soft text-amber-ink">Awaiting booking</span></dd></div>
+                  <div class="flex justify-between gap-3"><dt class="text-ink-soft">History</dt><dd class="font-semibold">Immutable</dd></div>
+                </dl>
+              </div>
+            </div>
+          </li>
+          <!-- 4 -->
+          <li class="sticky top-32" data-stack-card>
+            <div class="clip-notch-right bg-diamonds relative overflow-hidden rounded-3xl bg-aqua text-brand-900">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <div class="order-2 rounded-2xl bg-white p-5 shadow-float md:order-1 md:col-span-2" aria-hidden="true">
+                  <p class="text-lg font-semibold text-ink">Ramipril</p>
+                  <div class="mt-3 flex items-center gap-3 text-sm"><span class="rounded-lg bg-coral-soft px-2.5 py-1 font-semibold text-coral-ink line-through">5 mg</span><svg class="icon size-4 text-ink-soft"><use href="#i-arrow"/></svg><span class="rounded-lg bg-brand-100 px-2.5 py-1 font-semibold text-brand-900">10 mg</span></div>
+                  <p class="mt-3 text-sm text-ink-soft">Changed 21 Oct by Dr Nair · Riverside</p>
+                  <p class="mt-3 flex items-center gap-2 rounded-lg bg-amber-soft px-3 py-2 text-xs font-semibold text-amber-ink"><svg class="icon size-4"><use href="#i-alert"/></svg> Sources disagree on 1 medicine</p>
+                </div>
+                <div class="order-1 md:order-2 md:col-span-3 md:text-right">
+                  <p class="font-semibold text-brand-600">04</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Medicines with a visible history</h3>
+                  <p class="mt-4 text-lg font-light md:text-2xl">What changed, who changed it and when. Discrepancies between sources are shown, never silently resolved.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- 5 -->
+          <li class="sticky top-36" data-stack-card>
+            <div class="clip-notch-left bg-diamonds relative overflow-hidden rounded-3xl bg-brand-800 text-white">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <div class="md:col-span-3">
+                  <p class="font-semibold text-aqua">05</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Messages with context</h3>
+                  <p class="mt-4 text-lg font-light text-brand-50 md:text-2xl">Ask a question linked to the exact step or medicine, so nobody has to retell your story. Never a channel for emergencies.</p>
+                </div>
+                <div class="grid gap-3 rounded-2xl bg-white p-5 text-sm text-ink shadow-float md:col-span-2" aria-hidden="true">
+                  <span class="chip w-fit bg-brand-100 text-brand-900"><svg class="icon size-3.5"><use href="#i-link"/></svg> About: Follow-up blood test</span>
+                  <p class="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-blue-50 px-4 py-2.5">I've already booked this at Lakeside for Monday.</p>
+                  <p class="max-w-[85%] rounded-2xl rounded-bl-sm bg-brand-50 px-4 py-2.5">Thanks Alex, we've noted it. No more reminders needed.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- 6 -->
+          <li class="sticky top-40" data-stack-card>
+            <div class="clip-notch-right bg-diamonds relative overflow-hidden rounded-3xl bg-aqua text-brand-900">
+              <div class="grid items-center gap-8 p-8 md:grid-cols-5 md:gap-14 md:p-14">
+                <ul class="order-2 grid gap-2.5 rounded-2xl bg-white p-5 text-sm text-ink shadow-float md:order-1 md:col-span-2" aria-hidden="true">
+                  <li class="flex items-center justify-between gap-2"><span>GP practice</span><span class="chip bg-brand-100 text-brand-900">✓ Up to date</span></li>
+                  <li class="flex items-center justify-between gap-2"><span>Hospital</span><span class="chip bg-brand-100 text-brand-900">✓ Up to date</span></li>
+                  <li class="flex items-center justify-between gap-2"><span>Laboratory</span><span class="chip bg-brand-100 text-brand-900">✓ Up to date</span></li>
+                  <li class="flex items-center justify-between gap-2"><span>Pharmacy</span><span class="chip bg-amber-soft text-amber-ink">⚠ 3 days old</span></li>
+                </ul>
+                <div class="order-1 md:order-2 md:col-span-3 md:text-right">
+                  <p class="font-semibold text-brand-600">06</p>
+                  <h3 class="mt-2 text-3xl font-semibold tracking-tight md:text-5xl">Incomplete is visible</h3>
+                  <p class="mt-4 text-lg font-light md:text-2xl">Every item shows its source and how fresh it is. Stale feeds are flagged, so a gap is never mistaken for "all clear".</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="py-20 md:py-28" aria-labelledby="how-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">How it works</p>
+          <h2 id="how-title" class="section-title mx-auto mt-4 max-w-4xl">Not another record system. A coordination layer on the ones you trust.</h2>
+          <p class="section-lede mt-5">Every layer is designed for clarity, provenance and safe integration with existing GP, hospital, laboratory and pharmacy systems.</p>
+        </div>
+        <div class="mt-14 grid overflow-hidden rounded-3xl bg-linear-to-br from-brand-500 to-brand-700 md:grid-cols-2">
+          <div class="pause-on-hover mask-fade-y relative h-[26rem] overflow-hidden p-6 md:h-[32rem] md:p-10" role="region" aria-label="Platform layers">
+            <ul class="marquee-track flex animate-marquee-y flex-col gap-4">
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-sync"/></svg>Integration gateway</h3><p class="mt-1.5 text-sm text-brand-50">Validates and maps data from approved GP, hospital, laboratory and pharmacy systems, with idempotent, replayable ingestion.</p></li>
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-layers"/></svg>Canonical care model</h3><p class="mt-1.5 text-sm text-brand-50">Events, episodes and actions modelled on FHIR resources such as Task, ServiceRequest and MedicationStatement.</p></li>
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-search"/></svg>Provenance engine</h3><p class="mt-1.5 text-sm text-brand-50">Every assertion keeps its source, author, version and received time, so you can always ask "where did this come from?"</p></li>
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-check-circle"/></svg>Action engine</h3><p class="mt-1.5 text-sm text-brand-50">Explicit states, owners and due dates. Patient-reported and source-verified status are always kept apart.</p></li>
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-users"/></svg>Patient and provider apps</h3><p class="mt-1.5 text-sm text-brand-50">Accessible web apps with role- and relationship-based access, built for 320px phones up to clinic desktops.</p></li>
+              <li class="rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-file"/></svg>Audit and governance</h3><p class="mt-1.5 text-sm text-brand-50">Append-only audit of every access and change, with clinical safety and privacy governance designed in.</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-sync"/></svg>Integration gateway</h3><p class="mt-1.5 text-sm text-brand-50">Validates and maps data from approved GP, hospital, laboratory and pharmacy systems, with idempotent, replayable ingestion.</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-layers"/></svg>Canonical care model</h3><p class="mt-1.5 text-sm text-brand-50">Events, episodes and actions modelled on FHIR resources such as Task, ServiceRequest and MedicationStatement.</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-search"/></svg>Provenance engine</h3><p class="mt-1.5 text-sm text-brand-50">Every assertion keeps its source, author, version and received time, so you can always ask "where did this come from?"</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-check-circle"/></svg>Action engine</h3><p class="mt-1.5 text-sm text-brand-50">Explicit states, owners and due dates. Patient-reported and source-verified status are always kept apart.</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-users"/></svg>Patient and provider apps</h3><p class="mt-1.5 text-sm text-brand-50">Accessible web apps with role- and relationship-based access, built for 320px phones up to clinic desktops.</p></li>
+              <li class="marquee-dup rounded-2xl border border-white/25 bg-white/10 p-5 text-white backdrop-blur" aria-hidden="true"><h3 class="flex items-center gap-2 font-semibold"><svg class="icon"><use href="#i-file"/></svg>Audit and governance</h3><p class="mt-1.5 text-sm text-brand-50">Append-only audit of every access and change, with clinical safety and privacy governance designed in.</p></li>
+            </ul>
+          </div>
+          <!-- Flow diagram -->
+          <div class="flex items-center justify-center bg-brand-950/25 p-6 md:p-10">
+            <ol class="grid w-full max-w-sm gap-2 text-center text-sm font-semibold" aria-label="Data flow, from trusted sources to the apps">
+              <li class="rounded-2xl bg-white px-4 py-3 text-brand-900 shadow-card">Trusted source systems<span class="block text-xs font-medium text-ink-soft">GP · Hospital · Lab · Pharmacy</span></li>
+              <li class="mx-auto h-6 w-0.5 bg-white/60" aria-hidden="true"></li>
+              <li class="rounded-2xl bg-white/90 px-4 py-3 text-brand-900">Integration gateway and validation</li>
+              <li class="mx-auto h-6 w-0.5 bg-white/60" aria-hidden="true"></li>
+              <li class="rounded-2xl bg-white/90 px-4 py-3 text-brand-900">Canonical care and coordination model</li>
+              <li class="mx-auto h-6 w-0.5 bg-white/60" aria-hidden="true"></li>
+              <li class="rounded-2xl bg-aqua px-4 py-3 text-brand-950">Provenance · Action engine · Audit</li>
+              <li class="mx-auto h-6 w-0.5 bg-white/60" aria-hidden="true"></li>
+              <li class="rounded-2xl bg-brand-950 px-4 py-3 text-white shadow-card">Patient and provider apps</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section id="security" class="py-20 md:py-28" aria-labelledby="security-title">
+      <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8" data-reveal>
+        <p class="eyebrow">Security and privacy</p>
+        <h2 id="security-title" class="section-title mt-4">Built to protect what matters</h2>
+        <p class="section-lede mt-5">Safety, security and privacy are properties of the system, not disclaimers. These are the principles the product is designed to.</p>
+      </div>
+      <div class="pause-on-hover mask-fade-x mt-12 overflow-hidden" role="region" aria-label="Security principles">
+        <ul class="marquee-track flex w-max animate-marquee gap-5 px-4 [animation-duration:55s]">
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-key"/></svg></span><h3 class="mt-5 text-lg font-semibold">Least-privilege access</h3><p class="mt-2 text-ink-soft">Role and relationship checks on every request, with short-lived sessions and strong professional sign-in.</p></li>
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-lock"/></svg></span><h3 class="mt-5 text-lg font-semibold">Encrypted everywhere</h3><p class="mt-2 text-ink-soft">Encryption in transit and at rest with managed key rotation, plus tenant and organisation isolation.</p></li>
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-eye"/></svg></span><h3 class="mt-5 text-lg font-semibold">You decide who sees what</h3><p class="mt-2 text-ink-soft">Connected organisations are always visible to you, and consent can be reviewed and revoked.</p></li>
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-file"/></svg></span><h3 class="mt-5 text-lg font-semibold">Append-only audit</h3><p class="mt-2 text-ink-soft">Every view and change is recorded in a tamper-evident log under approved governance.</p></li>
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-shield"/></svg></span><h3 class="mt-5 text-lg font-semibold">Clinical safety by design</h3><p class="mt-2 text-ink-soft">No diagnosis, dosing advice or result interpretation. A safety case and hazard log guide every release.</p></li>
+          <li class="w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-activity"/></svg></span><h3 class="mt-5 text-lg font-semibold">Data minimisation</h3><p class="mt-2 text-ink-soft">No health data in analytics, logs or crash reports. Only what care coordination needs, for as long as it needs it.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-key"/></svg></span><h3 class="mt-5 text-lg font-semibold">Least-privilege access</h3><p class="mt-2 text-ink-soft">Role and relationship checks on every request, with short-lived sessions and strong professional sign-in.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-lock"/></svg></span><h3 class="mt-5 text-lg font-semibold">Encrypted everywhere</h3><p class="mt-2 text-ink-soft">Encryption in transit and at rest with managed key rotation, plus tenant and organisation isolation.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-eye"/></svg></span><h3 class="mt-5 text-lg font-semibold">You decide who sees what</h3><p class="mt-2 text-ink-soft">Connected organisations are always visible to you, and consent can be reviewed and revoked.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-file"/></svg></span><h3 class="mt-5 text-lg font-semibold">Append-only audit</h3><p class="mt-2 text-ink-soft">Every view and change is recorded in a tamper-evident log under approved governance.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-shield"/></svg></span><h3 class="mt-5 text-lg font-semibold">Clinical safety by design</h3><p class="mt-2 text-ink-soft">No diagnosis, dosing advice or result interpretation. A safety case and hazard log guide every release.</p></li>
+          <li class="marquee-dup w-80 shrink-0 rounded-3xl border border-brand-100 bg-white p-6 shadow-card" aria-hidden="true"><span class="grid size-12 place-items-center rounded-2xl bg-linear-to-br from-brand-600 to-brand-900 text-white"><svg class="icon size-6"><use href="#i-activity"/></svg></span><h3 class="mt-5 text-lg font-semibold">Data minimisation</h3><p class="mt-2 text-ink-soft">No health data in analytics, logs or crash reports. Only what care coordination needs, for as long as it needs it.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Timeline (interactive demo) -->
+    <section id="timeline" class="py-20 md:py-28" aria-labelledby="timeline-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-end" data-reveal>
+          <div>
+            <p class="eyebrow">Timeline</p>
+            <h2 id="timeline-title" class="section-title mt-4">Your whole care story, in one scroll</h2>
+            <p class="mt-5 text-lg text-ink-soft">From the first visit to today, every consultation, test, change and follow-up appears in order, from every provider, with its source attached. Select a point on the timeline to explore.</p>
+          </div>
+          <ul class="grid grid-cols-1 gap-x-8 gap-y-3 text-ink-soft sm:grid-cols-2">
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Chronological and complete</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Source on every item</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Filter by event type</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Linked care episodes</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Plain-language titles</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Medication change history</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Stale data flagged</li>
+            <li class="flex items-center gap-2"><svg class="icon size-4 text-brand-600"><use href="#i-check"/></svg>Follow-ups that close the loop</li>
+          </ul>
+        </div>
+
+        <div class="card mt-12 overflow-hidden p-4 sm:p-8" data-tabs>
+          <p class="mb-4 text-xs font-semibold uppercase tracking-widest text-ink-soft">Fictional example · Alex Morgan</p>
+          <!-- Panels -->
+          <div class="min-h-64">
+            <article id="tl-p1" role="tabpanel" aria-labelledby="tl-t1" class="grid gap-6 md:grid-cols-3">
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-users"/></svg>GP appointment: blood pressure review</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>21 Oct 2026 · Riverside Medical Practice</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>You saw Dr Nair to review your blood pressure. Your consultation summary was filed to your record.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-brand-100 text-brand-900">✓ Source-verified</span><span class="chip bg-slate-100 text-slate-700">Episode: Blood pressure review</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">What happened next</p><p class="mt-2 text-sm text-ink-soft">The same visit led to a medication change and, later, a follow-up blood test, linked together as one episode.</p></div>
+            </article>
+            <article id="tl-p2" role="tabpanel" aria-labelledby="tl-t2" class="grid gap-6 md:grid-cols-3" hidden>
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-pill"/></svg>Ramipril dose changed</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>21 Oct 2026 · Dr Priya Nair</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>Your dose changed from 5 mg to 10 mg. The previous instruction stays visible in your medication history.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-brand-100 text-brand-900">✓ Source-verified</span><span class="chip bg-amber-soft text-amber-ink">Review due 14 Nov</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">Before and after</p><p class="mt-3 flex items-center gap-3"><span class="rounded-lg bg-coral-soft px-2.5 py-1 font-semibold text-coral-ink line-through">5 mg</span><svg class="icon size-4"><use href="#i-arrow"/></svg><span class="rounded-lg bg-brand-100 px-2.5 py-1 font-semibold text-brand-900">10 mg</span></p></div>
+            </article>
+            <article id="tl-p3" role="tabpanel" aria-labelledby="tl-t3" class="grid gap-6 md:grid-cols-3" hidden>
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-flask"/></svg>Cholesterol result received</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>25 Oct 2026 · Lakeside Diagnostics</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>Your result arrived and was reviewed by Dr Nair on 27 Oct (source note). HEALNEXIA never interprets results itself.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-brand-100 text-brand-900">✓ Result received</span><span class="chip bg-slate-100 text-slate-700">Official title: LIPID PROFILE - SERUM</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">Why the official title?</p><p class="mt-2 text-sm text-ink-soft">Plain-language titles help you understand, while the source's own title stays for accuracy.</p></div>
+            </article>
+            <article id="tl-p4" role="tabpanel" aria-labelledby="tl-t4" class="grid gap-6 md:grid-cols-3" hidden>
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-building"/></svg>Echocardiogram referral received</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>28 Oct 2026 · Northbank Hospital</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>The hospital received your referral and owns the next step: offering you a date. You don't need to act.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-amber-soft text-amber-ink">Awaiting booking</span><span class="chip bg-slate-100 text-slate-700">Owner: Northbank booking team</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">Waiting, not forgotten</p><p class="mt-2 text-sm text-ink-soft">If the due date passes, the care team's worklist flags it, so nothing slips between organisations.</p></div>
+            </article>
+            <article id="tl-p5" role="tabpanel" aria-labelledby="tl-t5" class="grid gap-6 md:grid-cols-3" hidden>
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-flask"/></svg>Follow-up blood test requested</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>2 Nov 2026 · Riverside Medical Practice</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>Dr Nair asked for a blood test after your dose change. This is your next step, due by 9 Nov.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-amber-soft text-amber-ink">! Needs attention</span><span class="chip bg-slate-100 text-slate-700">Owner: You</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">Your options</p><ul class="mt-2 grid gap-1.5 text-sm text-ink-soft"><li>· Acknowledge</li><li>· Start booking</li><li>· Mark as booked elsewhere</li><li>· Ask a question</li></ul></div>
+            </article>
+            <article id="tl-p6" role="tabpanel" aria-labelledby="tl-t6" class="grid gap-6 md:grid-cols-3" hidden>
+              <div class="md:col-span-2">
+                <h3 class="flex items-center gap-2 text-2xl font-semibold text-brand-800"><svg class="icon size-6"><use href="#i-calendar"/></svg>Cardiology appointment</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-soft"><svg class="icon size-4"><use href="#i-calendar"/></svg>18 Nov 2026, 10:20 · Northbank Hospital</p>
+                <p class="mt-4 rounded-2xl bg-brand-50 p-4 text-ink"><span class="chip mb-2 bg-brand-800 text-white">Plain-language summary</span><br>Your clinic review is booked at Outpatients Level 2. Step-free access is available from the main entrance.</p>
+                <div class="mt-4 flex flex-wrap gap-2"><span class="chip bg-blue-100 text-blue-800">◷ Scheduled</span><span class="chip bg-brand-100 text-brand-900">✓ Verified by Northbank</span></div>
+              </div>
+              <div class="rounded-2xl bg-surface p-5"><p class="font-semibold">Upcoming</p><p class="mt-2 text-sm text-ink-soft">Future steps sit on the same timeline, so today always has context.</p></div>
+            </article>
+          </div>
+
+          <!-- Track -->
+          <div class="mt-8 overflow-x-auto pb-2">
+            <div role="tablist" aria-label="Timeline events" class="relative flex min-w-[40rem] justify-between gap-2 px-2 pt-2">
+              <div class="absolute top-[2.15rem] right-6 left-6 h-2 rounded-full bg-linear-to-r from-brand-300 via-brand-600 to-brand-900" aria-hidden="true"></div>
+              <button type="button" role="tab" id="tl-t1" aria-controls="tl-p1" aria-selected="true" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-brand-600 text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:bg-brand-900 group-aria-selected:ring-4 group-aria-selected:ring-brand-300"><svg class="icon size-5"><use href="#i-users"/></svg></span><span class="font-semibold text-ink">GP review</span><span class="text-xs text-ink-soft">21 Oct</span></button>
+              <button type="button" role="tab" id="tl-t2" aria-controls="tl-p2" aria-selected="false" tabindex="-1" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-brand-600 text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:bg-brand-900 group-aria-selected:ring-4 group-aria-selected:ring-brand-300"><svg class="icon size-5"><use href="#i-pill"/></svg></span><span class="font-semibold text-ink">Dose change</span><span class="text-xs text-ink-soft">21 Oct</span></button>
+              <button type="button" role="tab" id="tl-t3" aria-controls="tl-p3" aria-selected="false" tabindex="-1" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-brand-600 text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:bg-brand-900 group-aria-selected:ring-4 group-aria-selected:ring-brand-300"><svg class="icon size-5"><use href="#i-flask"/></svg></span><span class="font-semibold text-ink">Result</span><span class="text-xs text-ink-soft">25 Oct</span></button>
+              <button type="button" role="tab" id="tl-t4" aria-controls="tl-p4" aria-selected="false" tabindex="-1" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-brand-700 text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:bg-brand-900 group-aria-selected:ring-4 group-aria-selected:ring-brand-300"><svg class="icon size-5"><use href="#i-building"/></svg></span><span class="font-semibold text-ink">Referral</span><span class="text-xs text-ink-soft">28 Oct</span></button>
+              <button type="button" role="tab" id="tl-t5" aria-controls="tl-p5" aria-selected="false" tabindex="-1" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-amber-ink text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:ring-4 group-aria-selected:ring-amber-soft"><svg class="icon size-5"><use href="#i-flask"/></svg></span><span class="font-semibold text-ink">Blood test</span><span class="text-xs text-ink-soft">2 Nov</span></button>
+              <button type="button" role="tab" id="tl-t6" aria-controls="tl-p6" aria-selected="false" tabindex="-1" class="group relative z-10 flex w-24 flex-col items-center gap-2 rounded-xl p-1 text-sm"><span class="grid size-11 place-items-center rounded-full border-4 border-white bg-brand-900 text-white shadow-card transition group-aria-selected:scale-110 group-aria-selected:ring-4 group-aria-selected:ring-brand-300"><svg class="icon size-5"><use href="#i-calendar"/></svg></span><span class="font-semibold text-ink">Cardiology</span><span class="text-xs text-ink-soft">18 Nov</span></button>
+            </div>
+          </div>
+
+          <dl class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div class="rounded-2xl bg-surface p-4 text-center"><dt class="text-sm text-ink-soft">Events</dt><dd class="text-3xl font-bold text-brand-900">10</dd></div>
+            <div class="rounded-2xl bg-surface p-4 text-center"><dt class="text-sm text-ink-soft">Organisations</dt><dd class="text-3xl font-bold text-brand-900">4</dd></div>
+            <div class="rounded-2xl bg-surface p-4 text-center"><dt class="text-sm text-ink-soft">Care episodes</dt><dd class="text-3xl font-bold text-brand-900">2</dd></div>
+            <div class="rounded-2xl bg-surface p-4 text-center"><dt class="text-sm text-ink-soft">Open actions</dt><dd class="text-3xl font-bold text-brand-900">5</dd></div>
+          </dl>
+        </div>
+        <p class="mt-6 text-center"><a href="app.html#/journey" class="inline-flex items-center gap-2 font-semibold text-brand-700 hover:text-brand-900">Open the full timeline in the prototype <svg class="icon size-4"><use href="#i-arrow"/></svg></a></p>
+      </div>
+    </section>
+
+    <!-- Personas -->
+    <section id="personas" class="py-20 md:py-28" aria-labelledby="personas-title">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">Personas</p>
+          <h2 id="personas-title" class="section-title mt-4">Made for everyone involved in your care</h2>
+          <p class="section-lede mt-5">Patients, clinicians, pharmacists and coordinators share one view of what's open, who owns it and what comes next. Each sees only what their role allows.</p>
+        </div>
+        <div class="mt-14" data-tabs>
+          <div role="tablist" aria-label="Personas" class="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3">
+            <button type="button" role="tab" id="pe-t1" aria-controls="pe-p1" aria-selected="true" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">01</span><span class="text-xl font-semibold md:text-2xl">Patients</span></button>
+            <button type="button" role="tab" id="pe-t2" aria-controls="pe-p2" aria-selected="false" tabindex="-1" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">02</span><span class="text-xl font-semibold md:text-2xl">GPs and clinicians</span></button>
+            <button type="button" role="tab" id="pe-t3" aria-controls="pe-p3" aria-selected="false" tabindex="-1" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">03</span><span class="text-xl font-semibold md:text-2xl">Care coordinators</span></button>
+            <button type="button" role="tab" id="pe-t4" aria-controls="pe-p4" aria-selected="false" tabindex="-1" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">04</span><span class="text-xl font-semibold md:text-2xl">Pharmacists</span></button>
+            <button type="button" role="tab" id="pe-t5" aria-controls="pe-p5" aria-selected="false" tabindex="-1" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">05</span><span class="text-xl font-semibold md:text-2xl">Hospitals and labs</span></button>
+            <button type="button" role="tab" id="pe-t6" aria-controls="pe-p6" aria-selected="false" tabindex="-1" class="group relative rounded-3xl bg-aqua/70 px-4 pt-12 pb-8 text-center transition hover:bg-aqua aria-selected:bg-brand-800 aria-selected:text-white"><span class="absolute -top-5 left-1/2 grid h-12 w-20 -translate-x-1/2 place-items-center rounded-b-2xl rounded-t-md bg-brand-500 text-lg font-bold text-white shadow-card group-aria-selected:bg-aqua group-aria-selected:text-brand-900">06</span><span class="text-xl font-semibold md:text-2xl">Service admins</span></button>
+          </div>
+          <div class="card mt-8 p-6 md:p-8">
+            <div id="pe-p1" role="tabpanel" aria-labelledby="pe-t1"><p class="text-xl font-semibold text-brand-900">“Tell me what needs my attention now.”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>See why each action exists and who requested it</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Understand what changed since the last appointment</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Ask a question without retelling your story</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Be reassured when things are on track, without hidden gaps</li></ul></div>
+            <div id="pe-p2" role="tabpanel" aria-labelledby="pe-t2" hidden><p class="text-xl font-semibold text-brand-900">“Show me which patients have an unresolved care step.”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>A worklist ordered by explicit, configurable rules</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Missing acknowledgement shown apart from overdue</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Source and owner visible before you act</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>No opaque risk scores</li></ul></div>
+            <div id="pe-p3" role="tabpanel" aria-labelledby="pe-t3" hidden><p class="text-xl font-semibold text-brand-900">“Help me avoid duplicate work and unsafe assumptions.”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Contextual reminders from approved templates</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Duplicate-reminder warnings</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Every contact attempt audited</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Escalation follows your organisation's protocol</li></ul></div>
+            <div id="pe-p4" role="tabpanel" aria-labelledby="pe-t4" hidden><p class="text-xl font-semibold text-brand-900">“Which list is right, and what changed?”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Current medicines with reconciliation dates</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Human-readable change history</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Discrepancies between sources surfaced, not hidden</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Medication questions with context attached</li></ul></div>
+            <div id="pe-p5" role="tabpanel" aria-labelledby="pe-t5" hidden><p class="text-xl font-semibold text-brand-900">“Did the result reach the right person?”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Results and letters linked to the request that started them</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Closed-loop completion with evidence</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Referral ownership that's explicit across boundaries</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Standards-based integration</li></ul></div>
+            <div id="pe-p6" role="tabpanel" aria-labelledby="pe-t6" hidden><p class="text-xl font-semibold text-brand-900">“Keep integrations healthy and access governed.”</p><ul class="mt-4 grid gap-3 text-ink-soft md:grid-cols-2"><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Integration status with last sync and affected records</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Roles, action types and escalation configuration</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Audit search and export under governance</li><li class="flex gap-2"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Safe rollout with per-organisation feature flags</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact -->
+    <section id="impact" class="py-20 md:py-28" aria-labelledby="impact-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">Impact</p>
+          <h2 id="impact-title" class="section-title mx-auto mt-4 max-w-4xl">Clearer for patients. Calmer for care teams. Ready to pilot.</h2>
+          <p class="section-lede mt-5">HEALNEXIA is measured on comprehension, closed loops and safety, not on engagement or notification opens.</p>
+          <button type="button" class="btn btn-primary mt-8" data-open-dialog="demo-dialog">Request a demo</button>
+        </div>
+        <div class="mt-14 grid gap-6 md:grid-cols-3">
+          <article class="card overflow-hidden p-3" data-reveal>
+            <svg viewBox="0 0 320 180" class="h-auto w-full rounded-2xl bg-linear-to-br from-brand-50 to-aqua" aria-hidden="true">
+              <circle cx="160" cy="95" r="58" class="fill-white"/><path d="M160 125c-28-18-44-32-44-50a22 22 0 0 1 44-6 22 22 0 0 1 44 6c0 18-16 32-44 50Z" class="fill-brand-600"/><path d="M122 92h18l6-12 10 24 8-16h32" fill="none" class="stroke-white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="58" cy="54" r="14" class="fill-brand-300"/><circle cx="268" cy="132" r="10" class="fill-brand-400"/><rect x="236" y="34" width="44" height="30" rx="8" class="fill-white"/><path d="M246 49h24" class="stroke-brand-500" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="p-4">
+              <h3 class="text-xl font-semibold">For patients</h3>
+              <ul class="mt-4 grid gap-3 text-ink-soft">
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Identify your most important next step within seconds</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Understand why each action exists and who owns it</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Ask questions with context, not from scratch</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Know when information might be incomplete</li>
+              </ul>
+            </div>
+          </article>
+          <article class="card overflow-hidden p-3" data-reveal>
+            <svg viewBox="0 0 320 180" class="h-auto w-full rounded-2xl bg-linear-to-br from-brand-700 to-brand-900" aria-hidden="true">
+              <rect x="96" y="30" width="128" height="124" rx="14" class="fill-white"/><rect x="134" y="20" width="52" height="22" rx="8" class="fill-aqua"/>
+              <path d="M118 74l8 8 14-16M118 106l8 8 14-16" fill="none" class="stroke-brand-600" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M152 76h50M152 108h50M152 136h34" class="stroke-brand-200" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="56" cy="128" r="18" class="fill-brand-400"/><circle cx="270" cy="56" r="16" class="fill-aqua"/>
+            </svg>
+            <div class="p-4">
+              <h3 class="text-xl font-semibold">For care teams</h3>
+              <ul class="mt-4 grid gap-3 text-ink-soft">
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>See unresolved steps across organisational boundaries</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Tell a missing acknowledgement from a missed step</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Send contextual reminders without duplicates</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Stop chasing what the patient has already done</li>
+              </ul>
+            </div>
+          </article>
+          <article class="card overflow-hidden p-3" data-reveal>
+            <svg viewBox="0 0 320 180" class="h-auto w-full rounded-2xl bg-linear-to-br from-aqua to-brand-100" aria-hidden="true">
+              <circle cx="160" cy="90" r="26" class="fill-brand-800"/><circle cx="72" cy="50" r="18" class="fill-brand-500"/><circle cx="252" cy="50" r="18" class="fill-brand-500"/><circle cx="72" cy="134" r="18" class="fill-brand-500"/><circle cx="252" cy="134" r="18" class="fill-brand-500"/>
+              <path d="M88 58l48 22M232 58l-48 22M88 126l48-22M232 126l-48-22" class="stroke-brand-700" stroke-width="4" stroke-dasharray="6 6"/>
+              <path d="M150 90l7 7 13-14" fill="none" class="stroke-white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="p-4">
+              <h3 class="text-xl font-semibold">For health systems</h3>
+              <ul class="mt-4 grid gap-3 text-ink-soft">
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>More actions completed within their intended window</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Fewer unresolved actions without an owner</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Integration freshness you can monitor</li>
+                <li class="flex gap-2.5"><svg class="icon mt-0.5 text-brand-600"><use href="#i-check-circle"/></svg>Complements, not replaces, your existing EHR</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get started -->
+    <section id="get-started" class="py-20 md:py-28" aria-labelledby="start-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">Get started</p>
+          <h2 id="start-title" class="section-title mt-4">From pilot to proven in 5 steps</h2>
+        </div>
+        <ol class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <li class="relative rounded-3xl bg-white p-6 text-center shadow-card" data-reveal><span class="absolute -top-5 left-6 text-5xl font-bold text-brand-200">1</span><h3 class="mt-4 text-lg font-semibold">Discover</h3><p class="mt-2 text-ink-soft">Research with patients and professionals; map how information really flows.</p></li>
+          <li class="relative rounded-3xl bg-white p-6 text-center shadow-card" data-reveal><span class="absolute -top-5 left-6 text-5xl font-bold text-brand-200">2</span><h3 class="mt-4 text-lg font-semibold">Govern</h3><p class="mt-2 text-ink-soft">Agree intended use, clinical safety ownership and privacy assessment.</p></li>
+          <li class="relative rounded-3xl bg-white p-6 text-center shadow-card" data-reveal><span class="absolute -top-5 left-6 text-5xl font-bold text-brand-200">3</span><h3 class="mt-4 text-lg font-semibold">Connect</h3><p class="mt-2 text-ink-soft">Start with one cohort, one coordinating organisation and one external setting.</p></li>
+          <li class="relative rounded-3xl bg-white p-6 text-center shadow-card" data-reveal><span class="absolute -top-5 left-6 text-5xl font-bold text-brand-200">4</span><h3 class="mt-4 text-lg font-semibold">Close the loop</h3><p class="mt-2 text-ink-soft">Verified completion, provider worklist, contextual messages and audit.</p></li>
+          <li class="relative rounded-3xl bg-white p-6 text-center shadow-card" data-reveal><span class="absolute -top-5 left-6 text-5xl font-bold text-brand-200">5</span><h3 class="mt-4 text-lg font-semibold">Measure</h3><p class="mt-2 text-ink-soft">Expand only on evidence: comprehension, timeliness and safety.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 md:py-28" aria-labelledby="faq-title">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-reveal>
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title" class="section-title mt-4">Questions, answered</h2>
+        </div>
+        <div class="mt-12 grid gap-3">
+          <details class="group card p-0" name="faq" open><summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">Is HEALNEXIA a medical record?<svg class="icon transition group-open:rotate-180"><use href="#i-chevron"/></svg></summary><p class="px-6 pb-6 text-ink-soft">No. It's a coordination layer on top of the systems your providers already use. Those systems stay authoritative, and every item in HEALNEXIA links back to its source.</p></details>
+          <details class="group card p-0" name="faq"><summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">Does it give medical advice or interpret results?<svg class="icon transition group-open:rotate-180"><use href="#i-chevron"/></svg></summary><p class="px-6 pb-6 text-ink-soft">No. HEALNEXIA helps you understand and coordinate your care. It never diagnoses, prescribes or interprets results; labels on results come only from the source provider.</p></details>
+          <details class="group card p-0" name="faq"><summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">Can I use it in an emergency?<svg class="icon transition group-open:rotate-180"><use href="#i-chevron"/></svg></summary><p class="px-6 pb-6 text-ink-soft">Never. Messages are asynchronous and not monitored for emergencies. For urgent help, contact your local emergency number (for example 999, 112 or 911).</p></details>
+          <details class="group card p-0" name="faq"><summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">What if some of my information is missing?<svg class="icon transition group-open:rotate-180"><use href="#i-chevron"/></svg></summary><p class="px-6 pb-6 text-ink-soft">HEALNEXIA shows which organisations are connected and how fresh each one is. Missing or stale sources are flagged clearly, so an incomplete view is never presented as complete.</p></details>
+          <details class="group card p-0" name="faq"><summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">Does the prototype use real data?<svg class="icon transition group-open:rotate-180"><use href="#i-chevron"/></svg></summary><p class="px-6 pb-6 text-ink-soft">No. Every person, organisation and record in the prototype is fictional, and it's not connected to any healthcare system. Your clicks are stored only in your own browser.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section id="access" class="px-4 pb-24 sm:px-6 lg:px-8" aria-labelledby="cta-title">
+      <div class="bg-diamonds relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-brand-800 px-6 py-16 text-center text-white md:py-20" data-reveal>
+        <div class="absolute -right-20 -bottom-24 size-80 rounded-full bg-brand-500/40 blur-3xl" aria-hidden="true"></div>
+        <h2 id="cta-title" class="relative text-3xl font-semibold tracking-tight text-balance md:text-5xl">Ready to connect your care journey?</h2>
+        <p class="relative mx-auto mt-4 max-w-xl text-lg text-brand-50">Join the pilot list for updates, or explore the interactive prototype right now.</p>
+        <div class="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <button type="button" class="btn btn-light" data-open-dialog="join-dialog">Join now</button>
+          <a href="app.html" class="btn border border-white/40 text-white hover:bg-white/10">Explore the prototype</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-brand-100 bg-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-5 lg:px-8">
+      <div class="md:col-span-2">
+        <p class="text-2xl font-bold tracking-[0.12em] text-brand-950">HEALNEXIA</p>
+        <p class="mt-4 max-w-sm text-sm text-ink-soft">A patient-centred continuity-of-care platform that connects the events, people, information and open actions in a healthcare journey, so nothing important is overlooked.</p>
+      </div>
+      <nav aria-label="Product"><h2 class="font-semibold">Product</h2><ul class="mt-4 grid gap-2.5 text-sm text-ink-soft"><li><a class="hover:text-brand-800" href="app.html">Live prototype</a></li><li><a class="hover:text-brand-800" href="app.html#/dashboard">Provider view</a></li><li><a class="hover:text-brand-800" href="#how-it-works">How it works</a></li><li><a class="hover:text-brand-800" href="#security">Security</a></li></ul></nav>
+      <nav aria-label="Company"><h2 class="font-semibold">Help</h2><ul class="mt-4 grid gap-2.5 text-sm text-ink-soft"><li><a class="hover:text-brand-800" href="#faq">FAQ</a></li><li><button type="button" class="hover:text-brand-800" data-open-dialog="demo-dialog">Request a demo</button></li><li><button type="button" class="hover:text-brand-800" data-open-dialog="join-dialog">Join the pilot</button></li></ul></nav>
+      <div><h2 class="font-semibold">Important</h2><p class="mt-4 text-sm text-ink-soft">Prototype with fictional data. Not a medical device. Not for urgent communication or real care decisions.</p></div>
+    </div>
+    <div class="border-t border-brand-100 py-6 text-center text-sm text-ink-soft">© 2026 HEALNEXIA · Care, connected.</div>
   </footer>
 
-  <dialog id="drawer" aria-labelledby="drawer-title"></dialog>
-  <div id="live" class="sr" role="status" aria-live="polite"></div>
+  <!-- Dialog: join the pilot -->
+  <dialog id="join-dialog" aria-labelledby="join-title" class="m-auto w-[min(32rem,calc(100vw-2rem))] rounded-3xl bg-white p-0 text-ink shadow-float">
+    <form method="dialog" class="p-6 sm:p-8" data-lead-form novalidate>
+      <div class="flex items-start justify-between gap-4">
+        <div><h2 id="join-title" class="text-2xl font-semibold">Join the pilot list</h2><p class="mt-1 text-ink-soft">Be first to hear when HEALNEXIA opens to new cohorts.</p></div>
+        <button type="button" class="grid size-11 shrink-0 place-items-center rounded-xl border border-brand-100 hover:bg-brand-50" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div data-form-body class="mt-6 grid gap-4">
+        <div><label class="field-label" for="join-name">Full name</label><input class="field" id="join-name" name="name" autocomplete="name" required maxlength="80"><p class="field-error" id="join-name-error" hidden></p></div>
+        <div><label class="field-label" for="join-email">Email</label><input class="field" id="join-email" name="email" type="email" autocomplete="email" required maxlength="120"><p class="field-error" id="join-email-error" hidden></p></div>
+        <div><label class="field-label" for="join-role">I am a…</label><select class="field" id="join-role" name="role" required><option value="">Choose one</option><option>Patient or carer</option><option>Clinician</option><option>Pharmacist</option><option>Care coordinator</option><option>Health system leader</option><option>Other</option></select><p class="field-error" id="join-role-error" hidden></p></div>
+        <label class="flex items-start gap-3 text-sm text-ink-soft"><input type="checkbox" name="consent" required class="mt-0.5 size-5 accent-brand-700" aria-describedby="join-consent-error">I agree to be contacted about the HEALNEXIA pilot.</label>
+        <p class="field-error -mt-2" id="join-consent-error" hidden></p>
+        <p class="rounded-xl bg-amber-soft px-4 py-3 text-sm text-amber-ink">Preview only: this form doesn't send or store your details anywhere.</p>
+        <button type="submit" class="btn btn-primary w-full">Join the list <svg class="icon size-4"><use href="#i-send"/></svg></button>
+      </div>
+      <div data-form-success hidden class="mt-6 rounded-2xl bg-brand-50 p-6 text-center" role="status" tabindex="-1">
+        <span class="mx-auto grid size-14 place-items-center rounded-full bg-brand-800 text-white"><svg class="icon size-7"><use href="#i-check"/></svg></span>
+        <p class="mt-4 text-xl font-semibold">You're on the list</p>
+        <p class="mt-1 text-ink-soft">Thanks! In this preview nothing was sent, but this is where we'd confirm by email.</p>
+      </div>
+    </form>
+  </dialog>
 
-  <script src="app.js"></script>
+  <!-- Dialog: request a demo -->
+  <dialog id="demo-dialog" aria-labelledby="demo-title" class="m-auto w-[min(34rem,calc(100vw-2rem))] rounded-3xl bg-white p-0 text-ink shadow-float">
+    <form method="dialog" class="p-6 sm:p-8" data-lead-form novalidate>
+      <div class="flex items-start justify-between gap-4">
+        <div><h2 id="demo-title" class="text-2xl font-semibold">Request a demo</h2><p class="mt-1 text-ink-soft">See the patient and provider views with your team.</p></div>
+        <button type="button" class="grid size-11 shrink-0 place-items-center rounded-xl border border-brand-100 hover:bg-brand-50" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div data-form-body class="mt-6 grid gap-4">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div><label class="field-label" for="demo-name">Full name</label><input class="field" id="demo-name" name="name" autocomplete="name" required maxlength="80"><p class="field-error" id="demo-name-error" hidden></p></div>
+          <div><label class="field-label" for="demo-org">Organisation</label><input class="field" id="demo-org" name="organisation" autocomplete="organization" required maxlength="120"><p class="field-error" id="demo-org-error" hidden></p></div>
+        </div>
+        <div><label class="field-label" for="demo-email">Work email</label><input class="field" id="demo-email" name="email" type="email" autocomplete="email" required maxlength="120"><p class="field-error" id="demo-email-error" hidden></p></div>
+        <div><label class="field-label" for="demo-msg">What would you like to see? <span class="font-normal text-ink-soft">(optional)</span></label><textarea class="field min-h-28" id="demo-msg" name="message" maxlength="600"></textarea></div>
+        <p class="rounded-xl bg-amber-soft px-4 py-3 text-sm text-amber-ink">Preview only: this form doesn't send or store your details anywhere. Please don't include health information.</p>
+        <button type="submit" class="btn btn-primary w-full">Request demo <svg class="icon size-4"><use href="#i-send"/></svg></button>
+      </div>
+      <div data-form-success hidden class="mt-6 rounded-2xl bg-brand-50 p-6 text-center" role="status" tabindex="-1">
+        <span class="mx-auto grid size-14 place-items-center rounded-full bg-brand-800 text-white"><svg class="icon size-7"><use href="#i-check"/></svg></span>
+        <p class="mt-4 text-xl font-semibold">Request received</p>
+        <p class="mt-1 text-ink-soft">In this preview nothing was sent. Meanwhile, try the <a class="font-semibold text-brand-700 underline" href="app.html">live prototype</a>.</p>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>
