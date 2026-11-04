@@ -14,7 +14,7 @@ npm start            # http://127.0.0.1:8080 (served with production security he
 
 HEALNEXIA is **one installable web app (PWA)**:
 - `/` is the home page (`index.html`). It holds the story, the evidence plan and an interactive timeline, built with Tailwind CSS v4.
-- `/app.html` is the app (patient and provider views). It shares the same design, navigation, manifest and service worker.
+- `/app.html` is the app (patient and provider views). It shares the same Tailwind design system (`site/theme.css` holds the tokens used by both), navigation, manifest and service worker.
 - It can be installed from the browser, and works offline after the first visit (`sw.js` precaches every file).
 
 HEALNEXIA began as an app concept by Ayesha Afreen, Pharm.D, to connect people with pharmacists and other professionals. It won first prize at INNOVOTHON 2024. The site presents it as an evidence-first prototype: trust, pharmacist capacity, benefit and harm are evaluated before anyone relies on it. The app includes **Ask a pharmacist** (supplements and over-the-counter products) and **Report a suspected side effect**.
@@ -25,8 +25,9 @@ Both use ES modules, so they must be served over HTTP; opening the files from di
 
 ```bash
 npm ci               # pinned Tailwind CLI + font package
-npm run watch:css    # rebuild assets/site.css from site/styles.css on change
-npm run build:css    # minified production build (commit the result; CI verifies it)
+npm run watch:css       # rebuild assets/app.css (the app) on change
+npm run watch:site-css  # rebuild assets/site.css (the home page) on change
+npm run build:css       # minified production build of both (commit the result; CI verifies it)
 ```
 
 ## Test

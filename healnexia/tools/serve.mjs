@@ -10,7 +10,7 @@ import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const PUBLIC = new Set(['index.html', 'app.html', 'styles.css', 'sw.js', 'manifest.webmanifest', 'src', 'site', 'assets']);
+const PUBLIC = new Set(['index.html', 'app.html', 'sw.js', 'manifest.webmanifest', 'src', 'site', 'assets']);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.png': 'image/png', '.webp': 'image/webp', '.webmanifest': 'application/manifest+json' };
 
 export const WORKER_CSP = "default-src 'none'; connect-src 'self'";

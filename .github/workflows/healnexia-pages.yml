@@ -24,8 +24,8 @@ jobs:
         working-directory: healnexia
         run: |
           mkdir -p "$RUNNER_TEMP/site"
-          cp -r index.html app.html styles.css sw.js manifest.webmanifest src site assets "$RUNNER_TEMP/site/"
-          rm -f "$RUNNER_TEMP/site/site/styles.css"
+          cp -r index.html app.html sw.js manifest.webmanifest src site assets "$RUNNER_TEMP/site/"
+          rm -f "$RUNNER_TEMP/site/site/"*.css
           touch "$RUNNER_TEMP/site/.nojekyll"
       - name: Push to gh-pages
         env:

@@ -26,7 +26,7 @@ test('service worker precaches every public runtime file, and only files that ex
   const list = await precacheList();
   const runtime = [
     ...(await walk('src')), ...(await walk('assets')),
-    'site/main.js', 'index.html', 'app.html', 'styles.css', 'manifest.webmanifest'
+    'site/main.js', 'index.html', 'app.html', 'manifest.webmanifest'
   ].filter((f) => !f.endsWith('.txt'));
   for (const f of runtime) assert.ok(list.includes(f), `missing from PRECACHE: ${f}`);
   for (const f of list.filter((x) => x !== './')) assert.ok((await stat(join(ROOT, f))).isFile(), `PRECACHE lists missing file ${f}`);
@@ -55,5 +55,6 @@ test('both pages link the manifest and allow the worker in their CSP', async () 
 test('deploy workflow publishes the PWA files', async () => {
   const wf = await read('../.github/workflows/healnexia-pages.yml');
   for (const f of ['sw.js', 'manifest.webmanifest', 'index.html', 'app.html', 'assets', 'src', 'site']) assert.ok(wf.includes(f), f);
+  assert.ok(!wf.includes('styles.css '), 'old stylesheet no longer published');
   assert.ok(relative(ROOT, ROOT) === '');
 });
