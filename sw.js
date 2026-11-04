@@ -3,16 +3,16 @@
  * - Pages: network first, falling back to the cached copy when offline.
  * - Assets: served from cache, refreshed in the background (stale-while-revalidate).
  * Only same-origin GET requests are handled; nothing is sent anywhere. */
-const VERSION = 'hx-2026-11-04-3';
+const VERSION = 'hx-2026-11-04-4';
 
 // Keep in sync with the public files. tests/unit/pwa.test.js fails if any are missing.
 const PRECACHE = [
   './',
   'index.html',
   'app.html',
-  'styles.css',
   'manifest.webmanifest',
   'assets/site.css',
+  'assets/app.css',
   'assets/fonts/figtree-latin-wght-normal.woff2',
   'assets/fonts/figtree-latin-ext-wght-normal.woff2',
   'assets/icons/icon.svg',
