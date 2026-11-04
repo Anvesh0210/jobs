@@ -6,13 +6,24 @@ Interactive prototype of the HEALNEXIA continuity-of-care platform (PRD v1.0). A
 
 ## Run
 
-Requires Node 22 or later (no npm install needed to run).
+Requires Node 22 or later. No npm install is needed just to run it, because the built CSS is committed.
 
 ```bash
 npm start            # http://127.0.0.1:8080 (served with production security headers)
 ```
 
-The app uses ES modules, so it must be served over HTTP; opening `index.html` from disk will not work. Any static host works (see [SECURITY.md](SECURITY.md#hosting) for headers).
+- `/` is the **marketing site** (`index.html`): Tailwind CSS v4, a self-hosted Figtree font and an interactive timeline demo.
+- `/app.html` is the **interactive prototype** (patient and provider views).
+
+Both use ES modules, so they must be served over HTTP; opening the files from disk will not work. No Node? Run `python3 -m http.server 8080` in this folder. Any static host works (see [SECURITY.md](SECURITY.md#hosting) for headers).
+
+## Develop the site styles
+
+```bash
+npm ci               # pinned Tailwind CLI + font package
+npm run watch:css    # rebuild assets/site.css from site/styles.css on change
+npm run build:css    # minified production build (commit the result; CI verifies it)
+```
 
 ## Test
 
@@ -22,9 +33,22 @@ npm test             # unit tests (node:test, no dependencies)
 npm run test:e2e     # browser tests (needs the playwright package + Chromium)
 ```
 
-CI runs all three on Node 22 and 24 (`.github/workflows/healnexia.yml`).
+CI checks the built CSS is current, then runs all three on Node 22 and 24 (`.github/workflows/healnexia.yml`).
 
-## What it demonstrates
+## Marketing site
+
+The marketing site follows a modern health-tech landing page flow:
+- Sticky header with scrollspy and a popover mobile menu.
+- Hero with a product mock-up and a scrolling strip of standards.
+- A problem section with scrolling "pills" of common care gaps.
+- Stacked, notched solution cards that recede as you scroll (CSS scroll-driven animations).
+- An auto-scrolling "how it works" list with a data-flow diagram, plus a security principles carousel.
+- An interactive timeline (WAI-ARIA tabs), persona tabs, impact cards, a five-step pilot plan, an FAQ and a call-to-action band.
+- Validated "Join the pilot" and "Request a demo" dialogs. They are local only, and nothing is sent.
+
+All motion respects `prefers-reduced-motion`.
+
+## What the prototype demonstrates
 
 - **Patient view:**
   - Overview with the priority action and why it is first, care progress, counts, next appointment, care team and wellbeing check-in.

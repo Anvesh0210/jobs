@@ -1,0 +1,155 @@
+/* HEALNEXIA marketing site — Tailwind CSS v4 source.
+   Build: npm run build:css  →  assets/site.css (committed so static hosting needs no build step). */
+@import "tailwindcss";
+@source "../index.html";
+@source "./main.js";
+
+/* Self-hosted variable font (no third-party requests; keeps CSP strict). Paths are relative to assets/site.css. */
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 900;
+  src: url("fonts/figtree-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 900;
+  src: url("fonts/figtree-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  --font-sans: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Brand: deep clinical teal → aqua (PRD §12). */
+  --color-brand-50: #f0f9fb;
+  --color-brand-100: #d8f1f6;
+  --color-brand-200: #b5e5ee;
+  --color-brand-300: #83d1e0;
+  --color-brand-400: #48b4ca;
+  --color-brand-500: #2697b0;
+  --color-brand-600: #187a92;
+  --color-brand-700: #136277;
+  --color-brand-800: #0f4f61;
+  --color-brand-900: #0c4050;
+  --color-brand-950: #072a35;
+  --color-aqua: #c4eefa;
+  --color-surface: #f5fbfc;
+  --color-ink: #1c2a2f;
+  --color-ink-soft: #46595f;
+  --color-amber-soft: #fdf0d5;
+  --color-amber-ink: #6b4500;
+  --color-coral-soft: #fde6e0;
+  --color-coral-ink: #8a2617;
+
+  --shadow-card: 0 1px 2px rgb(7 42 53 / 0.05), 0 8px 24px -8px rgb(7 42 53 / 0.12);
+  --shadow-float: 0 24px 60px -20px rgb(7 42 53 / 0.35);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee 40s linear infinite reverse;
+  --animate-marquee-y: marquee-y 30s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-y { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-surface text-ink font-sans antialiased; }
+  :focus-visible { @apply outline-3 outline-offset-2 outline-brand-500 rounded-md; }
+  ::selection { @apply bg-brand-200 text-brand-950; }
+  [hidden] { display: none !important; }
+}
+
+@layer components {
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-600; }
+  .section-title { @apply text-3xl font-semibold tracking-tight text-balance text-ink md:text-4xl lg:text-5xl; }
+  .section-lede { @apply mx-auto max-w-3xl text-base font-medium text-pretty text-ink-soft md:text-lg; }
+
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-6 font-semibold transition
+      duration-200 ease-out active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary { @apply bg-brand-800 text-white shadow-card hover:bg-brand-900 hover:shadow-float; }
+  .btn-light { @apply bg-white text-brand-900 shadow-card hover:bg-brand-50; }
+  .btn-ghost { @apply border border-brand-200 bg-white/70 text-brand-900 backdrop-blur hover:border-brand-400 hover:bg-white; }
+
+  .card { @apply rounded-3xl border border-brand-100 bg-white shadow-card; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  .icon { @apply size-5 shrink-0 fill-none stroke-current stroke-2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .field-label { @apply mb-1.5 block text-sm font-semibold text-ink; }
+  .field {
+    @apply block min-h-12 w-full rounded-xl border border-brand-200 bg-white px-4 py-2.5 text-ink shadow-sm
+      transition placeholder:text-ink-soft/60 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-500/15;
+  }
+  .field[aria-invalid="true"] { @apply border-coral-ink ring-4 ring-coral-ink/10; }
+  .field-error { @apply mt-1.5 text-sm font-medium text-coral-ink; }
+}
+
+@layer utilities {
+  /* Notched corners for the alternating solution cards. */
+  .clip-notch-left { clip-path: polygon(4.5rem 0, 100% 0, 100% 100%, 0 100%, 0 4.5rem); }
+  .clip-notch-right { clip-path: polygon(0 0, calc(100% - 4.5rem) 0, 100% 4.5rem, 100% 100%, 0 100%); }
+
+  /* Soft fade at the edges of marquees. */
+  .mask-fade-x { mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+  .mask-fade-y { mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent); }
+
+  .bg-grid { background-image: linear-gradient(to right, rgb(19 98 119 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(19 98 119 / 0.06) 1px, transparent 1px); background-size: 32px 32px; }
+  .bg-diamonds { background-image: linear-gradient(135deg, rgb(255 255 255 / 0.07) 25%, transparent 25%), linear-gradient(225deg, rgb(255 255 255 / 0.07) 25%, transparent 25%); background-size: 120px 120px; }
+
+  .text-gradient { @apply bg-linear-to-r from-brand-800 via-brand-600 to-brand-400 bg-clip-text text-transparent; }
+
+  .pause-on-hover:hover .animate-marquee,
+  .pause-on-hover:hover .animate-marquee-reverse,
+  .pause-on-hover:hover .animate-marquee-y,
+  .pause-on-hover:focus-within .animate-marquee,
+  .pause-on-hover:focus-within .animate-marquee-y { animation-play-state: paused; }
+}
+
+/* Scroll-driven reveal: progressive enhancement, no JS, content visible where unsupported. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+    @keyframes reveal { from { opacity: 0; transform: translateY(28px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+    /* Stacked solution cards gently recede as the next one slides over them. */
+    [data-stack-card] > div {
+      animation: recede linear both;
+      animation-timeline: view();
+      animation-range: exit-crossing 0% exit-crossing 100%;
+    }
+    @keyframes recede { to { transform: scale(0.94); filter: brightness(0.92); } }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Marquees become static, wrapped lists; duplicate copies are hidden. */
+  .marquee-track { flex-wrap: wrap; justify-content: center; width: auto !important; }
+  .marquee-dup { display: none !important; }
+  [role="region"]:has(> .marquee-track) { overflow: auto; mask-image: none; }
+  .animate-marquee, .animate-marquee-reverse, .animate-marquee-y, .animate-float { animation: none !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
+
+/* Native dialog polish. */
+dialog::backdrop { background: rgb(7 42 53 / 0.55); backdrop-filter: blur(4px); }
+dialog[open] { animation: dialog-in 220ms ease-out; }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+@media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
+
+/* Mobile menu uses the HTML popover API. */
+#mobile-menu:popover-open { display: flex; }
+#mobile-menu::backdrop { background: rgb(7 42 53 / 0.4); }
